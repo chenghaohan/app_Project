@@ -25,19 +25,19 @@ def main():
 ## Stock Prices
 @app.route("/api/main/stockdata")
 def firstRoute(): 
-    data = db.session.query(Cases.City, Cases.Count).filter(Cases.city =="Toronto").all()
+    data = db.session.query(cisco, cnn_news, shopify, slack, zoom).all()
     return jsonify(data)
 
 ## Canadian Cases, Deaths, Vaccines by Province
 @app.route("/api/main/cancovid")
 def firstRoute(): 
-    data = db.session.query(Cases.City, Cases.Count).filter(Cases.city =="Toronto").all()
+    data = db.session.query(can_cases, can_deaths, vaccine_admin, canadian_coordinates).all()
     return jsonify(data)
 
 ## Global Cases, Deaths
 @app.route("/api/main/globalcovid")
 def firstRoute(): 
-    data = db.session.query(Cases.City, Cases.Count).filter(Cases.city =="Toronto").all()
+    data = db.session.query(global_cases, global_deaths, world_cordinates).all()
     return jsonify(data)
 
 
