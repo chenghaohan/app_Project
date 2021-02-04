@@ -29,6 +29,9 @@ can_cases = Base.classes.can_cases
 can_deaths = Base.classes.can_deaths
 vaccine_admin = Base.classes.vaccine_admin
 canadian_coordinates = Base.classes.canadian_coordinates
+global_cases = Base.classes.global_cases
+global_deaths = Base.classes.global_deaths
+world_coordinates = Base.classes.world_cordinates
 
 
 session = Session(engine)
@@ -57,12 +60,12 @@ def firstRoute():
 @app.route("/api/main/cancovid")
 def cancovidRoute(): 
     
-    cases_data = session.query(can_cases.Province, can_cases.Date_dt, can_cases.No_Cases).all()
+    cases_data = session.query(can_cases.Province, can_cases.Date_dt, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     cases_dataset = []
     for item in cases_data:
         cases_dataset.append(item)
     
-    deaths_data = session.query(can_deaths.Province, can_deaths.Date_dt, can_deaths.No_Deaths).all()
+    deaths_data = session.query(can_deaths.Province, can_deaths.Date_dt, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     deaths_dataset = []
     for item in deaths_data:
         deaths_dataset.append(item)
@@ -84,10 +87,28 @@ def cancovidRoute():
     return jsonify(output)
 
 # ## Global Cases, Deaths
-# @app.route("/api/main/globalcovid")
-# def firstRoute(): 
-#     data = db.session.query(global_cases, global_deaths, world_cordinates).all()
-#     return jsonify(data)
+@app.route("/api/main/globalcovid")
+def globalcovidRoute(): 
+    
+    global_cases_data = session.query(global_cases.Country, global_cases.Date_dt, global_cases.No_Cases).filter(global_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    global_cases_dataset = []
+    for item in global_cases_data:
+        global_cases_dataset.append(item)
+    
+    global_deaths_data = session.query(global_deaths.Country, global_deaths.Date_dt, global_deaths.No_Deaths).filter(global_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    global_deaths_dataset = []
+    for item in global_deaths_data:
+        global_deaths_dataset.append(item)
+    
+    world_coor_data = session.query(world_coordinates.Country, world_coordinates.Latitude, world_coordinates.Longitude).all()
+    world_coor_dataset = []
+    for item in world_coor_data:
+        world_coor_dataset.append(item)
+
+    output = { "Global Cases" : [global_cases_dataset], 
+                "Global Deaths" : [global_deaths_dataset], 
+                "World Coordinates" : [world_coor_dataset]}
+    return jsonify(output)
 
 
 
