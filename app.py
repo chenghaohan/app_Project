@@ -14,10 +14,8 @@ from sqlalchemy import func
 
 app = Flask(__name__)
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://cggjytcd:2Lf6GkD0Cb8TbV6e4-X7ZBCvNMh_zV3F@raja.db.elephantsql.com:5432/cggjytcd"
-#db = SQLAlchemy(app)
 
-# Create an engine for the chinook.sqlite database
+# Create an engine 
 engine = create_engine("postgresql+psycopg2://cggjytcd:2Lf6GkD0Cb8TbV6e4-X7ZBCvNMh_zV3F@raja.db.elephantsql.com:5432/cggjytcd", echo=False)
 
 # Reflect Database into ORM classes
