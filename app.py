@@ -32,6 +32,10 @@ canadian_coordinates = Base.classes.canadian_coordinates
 global_cases = Base.classes.global_cases
 global_deaths = Base.classes.global_deaths
 world_coordinates = Base.classes.world_cordinates
+zoom = Base.classes.zoom
+slack = Base.classes.slack
+cisco = Base.classes.cisco
+shopify = Base.classes.shopify
 
 
 session = Session(engine)
@@ -46,15 +50,42 @@ def main():
 
 ## Stock Prices
 @app.route("/api/main/stockdata")
-def firstRoute(): 
+def stockRoute(): 
     
-    data = session.query(can_cases.No_Cases).all()
-    dataset = []
-    for item in data:
-        dataset.append(item)
+    zoom_data = session.query(zoom.Date,zoom.Open,zoom.High,zoom.Low,zoom.Close,zoom.Volume).all()
+    
+    zoom_Date = []
+    for item in zoom_data[0]:
+        zoom_Date.append(item)
+    
+    zoom_Open = []
+    for item in zoom_data[1]:
+        zoom_Open.append(item)
+    
+    zoom_High = []
+    for item in zoom_data[2]:
+        zoom_High.append(item)
+    
+    zoom_Low = []
+    for item in zoom_data[3]:
+        zoom_Low.append(item)
+    
+    zoom_Close = []
+    for item in zoom_data[4]:
+        zoom_Close.append(item)
+    
+    zoom_Vol = []
+    for item in zoom_data[5]:
+        zoom_Vol.append(item)
 
-    output = { "output" : [dataset] }
-    return jsonify(output)
+    zoom_output = { "zoom_Date" : zoom_Date,
+               "zoom_Open" : zoom_Open,
+               "zoom_High" : zoom_High,
+               "zoom_Low" : zoom_Low,
+               "zoom_Close" : zoom_Close,
+               "zoom_Volume" : zoom_Vol
+     }
+    return jsonify(zoom_output)
 
 ## Canadian Cases, Deaths, Vaccines by Province
 @app.route("/api/main/cancovid")
