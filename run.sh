@@ -1,0 +1,1 @@
+FLASK_APP=covid_app/app.py flask run 
