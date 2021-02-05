@@ -1,6 +1,6 @@
 // Creating map object
 var myMap = L.map("map", {
-    center: [34.0522, -118.2437],
+    center: [56.1304, -106.3468],
     zoom: 8
   });
   
@@ -15,7 +15,7 @@ var myMap = L.map("map", {
   }).addTo(myMap);
   
   // Load in geojson data
-  var geoData = "static/data/Median_Household_Income_2016.geojson";
+  var geoData = "https://covid19-dashboard2021.herokuapp.com/api/main/cancovid";
   
   var geojson;
   
@@ -26,7 +26,7 @@ var myMap = L.map("map", {
     geojson = L.choropleth(data, {
   
       // Define what  property in the features to use
-      valueProperty: "MHI2016",
+      valueProperty: "Canadian_Cases",
   
       // Set color scale
       scale: ["#ffffb2", "#b10026"],
@@ -45,8 +45,7 @@ var myMap = L.map("map", {
   
       // Binding a pop-up to each layer
       onEachFeature: function(feature, layer) {
-        layer.bindPopup("Zip Code: " + feature.properties.ZIP + "<br>Median Household Income:<br>" +
-          "$" + feature.properties.MHI2016);
+        layer.bindPopup("Cases: " + feature.Canadian_Cases);
       }
     }).addTo(myMap);
   
@@ -59,7 +58,7 @@ var myMap = L.map("map", {
       var labels = [];
   
       // Add min & max
-      var legendInfo = "<h1>Median Income</h1>" +
+      var legendInfo = "<h1>Canadian Cases</h1>" +
         "<div class=\"labels\">" +
           "<div class=\"min\">" + limits[0] + "</div>" +
           "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
