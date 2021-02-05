@@ -53,28 +53,28 @@ def stockRoute():
     zoom_data = session.query(zoom.Date,zoom.Open,zoom.High,zoom.Low,zoom.Close,zoom.Volume).all()
     
     zoom_Date = []
-    for item in zoom_data[0]:
-        zoom_Date.append(item)
+    for item in zoom_data:
+        zoom_Date.append(item[0])
     
     zoom_Open = []
-    for item in zoom_data[1]:
-        zoom_Open.append(item)
+    for item in zoom_data:
+        zoom_Open.append(item[1])
     
     zoom_High = []
-    for item in zoom_data[2]:
-        zoom_High.append(item)
+    for item in zoom_data:
+        zoom_High.append(item[2])
     
     zoom_Low = []
-    for item in zoom_data[3]:
-        zoom_Low.append(item)
+    for item in zoom_data:
+        zoom_Low.append(item[3])
     
     zoom_Close = []
-    for item in zoom_data[4]:
-        zoom_Close.append(item)
+    for item in zoom_data:
+        zoom_Close.append(item[4])
     
     zoom_Vol = []
-    for item in zoom_data[5]:
-        zoom_Vol.append(item)
+    for item in zoom_data:
+        zoom_Vol.append(item[5])
 
     zoom_output = { "zoom_Date" : zoom_Date,
                "zoom_Open" : zoom_Open,
