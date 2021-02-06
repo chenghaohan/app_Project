@@ -34,22 +34,19 @@
    <div class="row">
      <div class="col-md-12"></div>
                  <div id="map">
-      </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-      <h2>World COVID-19 Map</h2>
-      </div>
-    </div>  
-   <div class="row">
-     <div class="col-md-12"></div>
-                 <div id="global_map">
-      </div>
+
+    <div id="stockPlot">
+      <h2>Tech Stock Performance During COVID-19</h2>
     </div>
-  
-  
-
-
+    <select id="selDataset">
+      <option value="zoom">ZOOM</option>
+      <option value="slack">Slack</option>
+      <option value="cisco">Cisco</option>
+      <option value="shopify">Shopify</option>
+    </select>
+    
+  </div>
 
 
 
@@ -65,8 +62,8 @@
 
   <!-- Our JS -->
   <script type="text/javascript" src="../static/js/config.js"></script>
-  <script type="text/javascript" src="../static/js/can_map.js"></script>
-  <script type="text/javascript" src="../static/js/world_map.js"></script>
+  <script type="text/javascript" src="../static/js/logic.js"></script>
+  <script type="text/javascript" src="../static/js/stock.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
