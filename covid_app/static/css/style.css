@@ -8,7 +8,7 @@ body {
     height: 100%;
   }
   
-  #map {
+  #map, #global_map {
       height: 400px;
       width: 700px;
   }
