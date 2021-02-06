@@ -1,5 +1,5 @@
 // Creating map object
-var myMap = L.map("map", {
+var canMap = L.map("map", {
     center: [62.24, -96.28],
     zoom: 3.2
   });
@@ -12,8 +12,16 @@ var myMap = L.map("map", {
     zoomOffset: -1,
     id: "mapbox/light-v9",
     accessToken: API_KEY
-  }).addTo(myMap);
+  }).addTo(canMap);
   
+
+console.log("PROCESS STARTED")
+d3.json("/api/main/canmap", function(canGeoJSON) {
+    console.log(canGeoJSON);
+  L.geoJson(canGeoJSON).addTo(canMap);
+});
+  // Create a new choropleth layer
+console.log("PROCESS ENDED")
   // Load in geojson data
   var geoData = "/api/main/cancovid";
 
@@ -22,11 +30,7 @@ var myMap = L.map("map", {
   
   // Grab data with d3
   d3.json(geoData, function(data) {
-    console.log(data);
-    
-    
-    //var mapLayer = L.geoJson("canada_provinces.geoJSON").addTo(myMap);
-    // Create a new choropleth layer
+
 
 
     geojson = L.choropleth(data, {
@@ -53,7 +57,7 @@ var myMap = L.map("map", {
     onEachFeature: function(feature, layer) {
          layer.bindPopup("Cases: " + feature.Canadian_Cases);
        }
-    }).addTo(myMap);
+    }).addTo(canMap);
   
     // Set up the legend
     var legend = L.control({ position: "bottomright" });
@@ -81,7 +85,7 @@ var myMap = L.map("map", {
     };
   
     // // Adding legend to the map
-    legend.addTo(myMap);
+    legend.addTo(canMap);
   
   });
   

@@ -1,7 +1,7 @@
 // Creating map object
 var myMap = L.map("global_map", {
     center: [40.52, 34.34],
-    zoom: 2.0
+    zoom: 2.2
   });
   
   // Adding tile layer
@@ -19,8 +19,17 @@ var covid_data = "/api/main/globalcovid";
 
 var geojson;
   
+
+function test(){
+    // Grab data with d3
+    d3.json("/api/main/globalcovid").then(function(data){
+      console.log(data);
+})
+}
+
+test()
   // Grab data with d3
-  d3.json(geoData, function(data) {
+  d3.json("/api/main/globalcovid").then(function(data){
     console.log(data);
     // Create a new choropleth layer
     geojson = L.choropleth(data, {
