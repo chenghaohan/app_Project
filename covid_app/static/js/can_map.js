@@ -1,5 +1,5 @@
 // Creating map object
-var mapCanada = L.map("map", {
+var canMap = L.map("map", {
     center: [62.24, -96.28],
     zoom: 3.2
   });
@@ -12,13 +12,13 @@ var mapCanada = L.map("map", {
     zoomOffset: -1,
     id: "mapbox/light-v9",
     accessToken: API_KEY
-  }).addTo(myMap);
+  }).addTo(canMap);
   
 
 console.log("PROCESS STARTED")
 d3.json("/api/main/canmap", function(canGeoJSON) {
     console.log(canGeoJSON);
-  L.geoJson(JSON.stringify(canGeoJSON)).addTo(mapCanada);
+  L.geoJson(JSON.stringify(canGeoJSON)).addTo(canMap);
 });
   // Create a new choropleth layer
 console.log("PROCESS ENDED")
@@ -57,7 +57,7 @@ console.log("PROCESS ENDED")
     onEachFeature: function(feature, layer) {
          layer.bindPopup("Cases: " + feature.Canadian_Cases);
        }
-    }).addTo(mapCanada);
+    }).addTo(canMap);
   
     // Set up the legend
     var legend = L.control({ position: "bottomright" });
@@ -85,7 +85,7 @@ console.log("PROCESS ENDED")
     };
   
     // // Adding legend to the map
-    legend.addTo(mapCanada);
+    legend.addTo(canMap);
   
   });
   
