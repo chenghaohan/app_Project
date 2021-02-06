@@ -9,8 +9,8 @@ body {
   }
   
   #map {
-      height: 800px;
-      width: 1180px;
+      height: 400px;
+      width: 700px;
   }
 
   .leaflet-popup-content {
