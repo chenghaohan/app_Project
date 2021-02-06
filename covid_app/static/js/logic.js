@@ -1,7 +1,7 @@
 // Creating map object
 var myMap = L.map("map", {
-    center: [56.1304, -106.3468],
-    zoom: 8
+    center: [53.145743, -95.424717],
+    zoom: 4
   });
   
   // Adding tile layer
@@ -10,7 +10,7 @@ var myMap = L.map("map", {
     tileSize: 512,
     maxZoom: 18,
     zoomOffset: -1,
-    id: "mapbox/streets-v11",
+    id: "mapbox/light-v9",
     accessToken: API_KEY
   }).addTo(myMap);
   
@@ -45,9 +45,9 @@ var myMap = L.map("map", {
        },
   
     // Binding a pop-up to each layer
-    //onEachFeature: function(feature, layer) {
-    //     layer.bindPopup("Cases: " + feature.Canadian_Cases);
-    //   }
+    onEachFeature: function(feature, layer) {
+         layer.bindPopup("Cases: " + feature.Canadian_Cases);
+       }
     }).addTo(myMap);
   
     // Set up the legend
