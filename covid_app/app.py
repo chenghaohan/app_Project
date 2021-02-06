@@ -234,23 +234,24 @@ def cancovidRoute():
     for item in can_coor_data:
         can_coor_dataset.append(item)
     
-    # can_geojson = {}
-    # with open (get_static_file("asset/data/canada_provinces.geojson"), "r") as f: 
-    #     json.dump(can_geojson, f)
-    
     output = { "Canadian_Cases" : [cases_dataset], 
-                "Canadian Deaths" : [deaths_dataset], 
-                "Canadian Vaccines Admin" : [vaccine_dataset], 
-                "Canadian Coordinates" : [can_coor_dataset], 
-                "Canadian GeoJson": []}
+                "Canadian_Deaths" : [deaths_dataset], 
+                "Canadian_Vaccines Admin" : [vaccine_dataset], 
+                "Canadian_Coordinates" : [can_coor_dataset]}
     return jsonify(output)
+
+@app.route("/api/main/canmap")
+def canmap(): 
+    with open("assets/data/canada_provinces.geojson", "r") as f: 
+         canada_geojson = json.load(f)
+    return jsonify(canada_geojson)
 
 # ## Global Cases, Deaths
 @app.route("/api/main/globalcovid")
 def globalcovidRoute(): 
     
     global_cases_data = session.query(global_cases.Country, global_cases.Date_dt, global_cases.No_Cases).filter(global_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
-    global_cases_dataset = []
+    global_cases_dataset = []   
     for item in global_cases_data:
         global_cases_dataset.append(item)
     
