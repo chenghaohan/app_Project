@@ -11,6 +11,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 from sqlalchemy import func
+import json
 
 app = Flask(__name__)
 
@@ -212,11 +213,16 @@ def cancovidRoute():
     can_coor_dataset = []
     for item in can_coor_data:
         can_coor_dataset.append(item)
-
+    
+    # can_geojson = {}
+    # with open (get_static_file("asset/data/canada_provinces.geojson"), "r") as f: 
+    #     json.dump(can_geojson, f)
+    
     output = { "Canadian_Cases" : [cases_dataset], 
                 "Canadian Deaths" : [deaths_dataset], 
                 "Canadian Vaccines Admin" : [vaccine_dataset], 
-                "Canadian Coordinates" : [can_coor_dataset]}
+                "Canadian Coordinates" : [can_coor_dataset], 
+                "Canadian GeoJson": []}
     return jsonify(output)
 
 # ## Global Cases, Deaths

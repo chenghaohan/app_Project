@@ -18,12 +18,17 @@ var myMap = L.map("map", {
   var geoData = "/api/main/cancovid";
 
   
-  var geojson;
+  //d3.json("canada_provinces.geoJSON", data => console.log(data));
   
   // Grab data with d3
   d3.json(geoData, function(data) {
     console.log(data);
+    
+    
+    //var mapLayer = L.geoJson("canada_provinces.geoJSON").addTo(myMap);
     // Create a new choropleth layer
+
+
     geojson = L.choropleth(data, {
   
     // Define what  property in the features to use
@@ -79,4 +84,5 @@ var myMap = L.map("map", {
     legend.addTo(myMap);
   
   });
+  
   
