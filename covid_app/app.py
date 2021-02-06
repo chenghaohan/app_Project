@@ -34,6 +34,7 @@ zoom = Base.classes.zoom
 slack = Base.classes.slack
 cisco = Base.classes.cisco
 shopify = Base.classes.shopify
+cnn_news = Base.classes.cnn_news
 
 
 session = Session(engine)
@@ -45,6 +46,25 @@ def main():
 
 
 ## SERVICE ROUTES
+
+@app.route("/api/main/news")
+def newsRoute(): 
+    #pulling zoom prices from SQL server
+    news = session.query(cnn_news.Date,cnn_news.Event).all()
+    
+    news_Date = []
+    for item in news:
+        news_Date.append(item[0])
+    
+    news_Event = []
+    for item in news:
+        news_Event.append(item[1])
+    
+    news_output = { "news_Date" : news_Date,
+               "event" : news_Event
+     }
+    return jsonify(news_output)
+
 
 ## Stock Prices
 @app.route("/api/main/stockdata")
