@@ -7,46 +7,46 @@ d3.json(stockData, function(data) {
 
 
 
-function buildPlot(stock) {
+// function buildPlot(stock) {
 
-  var trace1 = {
-    type: "scatter",
-    mode: "lines",
-    name: name,
-    x: dates,
-    y: closingPrices,
-    line: {
-      color: "#17BECF"
-    }
-  };
+//   var trace1 = {
+//     type: "scatter",
+//     mode: "lines",
+//     name: name,
+//     x: dates,
+//     y: closingPrices,
+//     line: {
+//       color: "#17BECF"
+//     }
+//   };
 
-  // Candlestick Trace
-  var trace2 = {
-    type: "candlestick",
-    x: dates,
-    high: highPrices,
-    low: lowPrices,
-    open: openingPrices,
-    close: closingPrices
-  };
+//   // Candlestick Trace
+//   var trace2 = {
+//     type: "candlestick",
+//     x: dates,
+//     high: highPrices,
+//     low: lowPrices,
+//     open: openingPrices,
+//     close: closingPrices
+//   };
 
-  var data = [trace1, trace2];
+//   var data = [trace1, trace2];
 
-  var layout = {
-    title: `${stock} closing prices`,
-    xaxis: {
-      range: [startDate, endDate],
-      type: "date"
-    },
-    yaxis: {
-      autorange: true,
-      type: "linear"
-    }
-  };
+//   var layout = {
+//     title: `${stock} closing prices`,
+//     xaxis: {
+//       range: [startDate, endDate],
+//       type: "date"
+//     },
+//     yaxis: {
+//       autorange: true,
+//       type: "linear"
+//     }
+//   };
 
-  Plotly.newPlot("plot", data, layout);
+//   Plotly.newPlot("plot", data, layout);
 
-}
+// }
 
 
 
