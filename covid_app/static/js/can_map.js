@@ -18,7 +18,7 @@ var canMap = L.map("map", {
 console.log("PROCESS STARTED")
 d3.json("/api/main/canmap", function(canGeoJSON) {
     console.log(canGeoJSON);
-  L.geoJson(JSON.stringify(canGeoJSON)).addTo(canMap);
+  L.geoJson(canGeoJSON).addTo(canMap);
 });
   // Create a new choropleth layer
 console.log("PROCESS ENDED")
