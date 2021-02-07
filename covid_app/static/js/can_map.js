@@ -18,7 +18,7 @@
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
     if (feature.properties && feature.properties.PRENAME) {
-        layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr>");
+        layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr><p> Cases: </p><p> Deaths:</p><p> Vaccines Administered: </p>");
     }
 }
 
@@ -41,7 +41,7 @@ var geoData = "/api/main/cancovid";
   // Grab data with d3
 d3.json("/api/main/cancovid").then (function(data) {
 
-  console.log(data.Canadian_Coordinates)
+  console.log(data.Canadian_Cases)
 
 });
 

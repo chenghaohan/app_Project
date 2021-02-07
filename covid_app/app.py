@@ -214,20 +214,40 @@ def stockRoute():
 @app.route("/api/main/cancovid")
 def cancovidRoute(): 
     
+
     cases_data = session.query(can_cases.Province, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
-    cases_dataset = []
+    cases_dataset = {}
+    provinces = []
+    no_cases = []
     for item in cases_data:
-        cases_dataset.append(item)
-    
+        provinces.append(item[0])
+        no_cases.append(item[1])
+        cases_dataset = dict(zip(provinces, no_cases))
+   
+    cases = []
+    for item in cases_data:
+       cases.append(item[1])
+       total_cases = sum(cases)
+
     deaths_data = session.query(can_deaths.Province, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     deaths_dataset = []
     for item in deaths_data:
         deaths_dataset.append(item)
 
+    deaths = []
+    for item in deaths_data:
+       deaths.append(item[1])
+       total_deaths = sum(deaths)
+
     vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Vaccine_Administered).all()
     vaccine_dataset = []
     for item in vaccine_data:
         vaccine_dataset.append(item)
+
+    # vaccine = []
+    # for item in vaccine_data:
+    #    vaccine.append(item[1])
+    #    total_vaccine = sum(vaccine)
     
     can_coor_data = session.query(canadian_coordinates.Province, canadian_coordinates.Latitude, canadian_coordinates.Longitude).all()
     can_coor_dataset = []
@@ -235,8 +255,11 @@ def cancovidRoute():
         can_coor_dataset.append(item)
     
    
+   
     
-    output = { 
+    output = {  "Total_Cases": total_cases,
+                "Total_Deaths": total_deaths,
+                # "Total_Vaccine": total_vaccine,
                 "Canadian_Cases" : [cases_dataset], 
                 "Canadian_Deaths" : [deaths_dataset], 
                 "Canadian_Vaccines Admin" : [vaccine_dataset], 
@@ -244,16 +267,7 @@ def cancovidRoute():
                 
     return jsonify(output)
 
-## Combined Canadian
-# @app.route("/api/main/cancombined")
-# def cancombinedRoute():
-#     combined_data = session.query(canadian_coordinates).join(vaccine_admin, canadian_coordinates.Province == vaccine_admin.Province).all()
-#     combined_dataset = []
-#     for item in combined_data:
-#         combined_dataset.append(item)
-    
-#     output = {"Provincial_Data" : [combined_dataset]}
-#     return jsonify(output)
+
 
 @app.route("/api/main/canmap")
 def canmap(): 
