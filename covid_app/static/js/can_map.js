@@ -16,10 +16,15 @@ var canMap = L.map("map", {
   
 
 console.log("PROCESS STARTED")
-d3.json("/api/main/canmap", function(canGeoJSON) {
-    console.log(canGeoJSON);
-  L.geoJson(canGeoJSON).addTo(canMap);
+function provinces(){
+
+    d3.json("/api/main/canmap").then(function(canGeoJSON) {
+        console.log(canGeoJSON);
+        L.geoJson(canGeoJSON).addTo(canMap);
 });
+}
+
+provinces()
   // Create a new choropleth layer
 console.log("PROCESS ENDED")
   // Load in geojson data
