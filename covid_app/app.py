@@ -214,17 +214,17 @@ def stockRoute():
 @app.route("/api/main/cancovid")
 def cancovidRoute(): 
     
-    cases_data = session.query(can_cases.Province, can_cases.Date_dt, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    cases_data = session.query(can_cases.Province, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     cases_dataset = []
     for item in cases_data:
         cases_dataset.append(item)
     
-    deaths_data = session.query(can_deaths.Province, can_deaths.Date_dt, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    deaths_data = session.query(can_deaths.Province, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     deaths_dataset = []
     for item in deaths_data:
         deaths_dataset.append(item)
 
-    vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Date, vaccine_admin.Vaccine_Administered).all()
+    vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Vaccine_Administered).all()
     vaccine_dataset = []
     for item in vaccine_data:
         vaccine_dataset.append(item)
@@ -234,20 +234,14 @@ def cancovidRoute():
     for item in can_coor_data:
         can_coor_dataset.append(item)
     
-    # total_cases_data = session.query(sum(can_cases.No_Cases)).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
-    # total_vaccine_data = session.query(sum(vaccine_admin.Vaccine_Administered)).all()
-    # total_deaths_data = session.query(sum(can_deaths.No_Deaths)).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
-
-    
+   
     
     output = { 
                 "Canadian_Cases" : [cases_dataset], 
                 "Canadian_Deaths" : [deaths_dataset], 
                 "Canadian_Vaccines Admin" : [vaccine_dataset], 
                 "Canadian_Coordinates" : [can_coor_dataset]}
-                # "Total_Canadian_Cases": [total_cases_data], 
-                # "Total_Canadian_Deaths": [total_deaths_data], 
-                # "Total_Canadian_Vaccines": [total_vaccine_data]}
+                
     return jsonify(output)
 
 ## Combined Canadian
