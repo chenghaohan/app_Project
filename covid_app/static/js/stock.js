@@ -2,8 +2,9 @@
 var stockData = "/api/main/stockdata";
 
 // Show data with d3
-d3.json(stockData, function(data) {
-  console.log(data)});
+d3.json(stockData).then(function(data) {
+  console.log(data)
+})
 
 
 
