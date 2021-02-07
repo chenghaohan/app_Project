@@ -18,9 +18,9 @@ var canMap = L.map("map", {
 console.log("PROCESS STARTED")
 function provinces(){
 
-    d3.json("/api/main/canmap").then(function(canGeoJSON) {
-        console.log(canGeoJSON);
-        L.geoJson(canGeoJSON).addTo(canMap);
+    d3.json("/api/main/canmap").then(function(data) {
+        console.log(data);
+        L.geoJson(data).addTo(canMap)
 });
 }
 
