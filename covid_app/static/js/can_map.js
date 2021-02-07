@@ -15,12 +15,21 @@
     accessToken: API_KEY
   }).addTo(canMap);
   
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.PRENAME) {
+        layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr>");
+    }
+}
+
 
 d3.json("/api/main/canmap").then(function(dataset) {
   //createFeatures(dataset.features);
   console.log(dataset);
-  L.geoJSON(dataset).addTo(canMap)    
-  });
+  L.geoJSON(dataset, {
+    onEachFeature: onEachFeature
+  }).addTo(canMap)    
+});
 
 
 
