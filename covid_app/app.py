@@ -214,17 +214,17 @@ def stockRoute():
 @app.route("/api/main/cancovid")
 def cancovidRoute(): 
     
-    cases_data = session.query(can_cases.Province, can_cases.Date_dt, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    cases_data = session.query(can_cases.Province, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     cases_dataset = []
     for item in cases_data:
         cases_dataset.append(item)
     
-    deaths_data = session.query(can_deaths.Province, can_deaths.Date_dt, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
+    deaths_data = session.query(can_deaths.Province, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     deaths_dataset = []
     for item in deaths_data:
         deaths_dataset.append(item)
 
-    vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Date, vaccine_admin.Vaccine_Administered).all()
+    vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Vaccine_Administered).all()
     vaccine_dataset = []
     for item in vaccine_data:
         vaccine_dataset.append(item)
@@ -234,15 +234,30 @@ def cancovidRoute():
     for item in can_coor_data:
         can_coor_dataset.append(item)
     
-    output = { "Canadian_Cases" : [cases_dataset], 
+   
+    
+    output = { 
+                "Canadian_Cases" : [cases_dataset], 
                 "Canadian_Deaths" : [deaths_dataset], 
                 "Canadian_Vaccines Admin" : [vaccine_dataset], 
                 "Canadian_Coordinates" : [can_coor_dataset]}
+                
     return jsonify(output)
+
+## Combined Canadian
+# @app.route("/api/main/cancombined")
+# def cancombinedRoute():
+#     combined_data = session.query(canadian_coordinates).join(vaccine_admin, canadian_coordinates.Province == vaccine_admin.Province).all()
+#     combined_dataset = []
+#     for item in combined_data:
+#         combined_dataset.append(item)
+    
+#     output = {"Provincial_Data" : [combined_dataset]}
+#     return jsonify(output)
 
 @app.route("/api/main/canmap")
 def canmap(): 
-    with open("assets/data/CAN_Provinces.geojson", "r") as f: 
+    with open("assets/data/canada_provinces.geojson", "r") as f: 
          canada_geojson = json.load(f)
     return jsonify(canada_geojson)
 
