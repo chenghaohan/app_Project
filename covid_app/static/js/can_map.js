@@ -37,9 +37,9 @@ d3.json("/api/main/canmap").then(function(dataset) {
 d3.json("/api/main/cancovid").then (function(data) {
 
   
-  var total_cases = (data.Total_Cases)
+  var total_cases = parseInt(data.map(d =>d.Total_Cases));
   //console.log(total_cases)
-  var total_deaths = (data.Total_Deaths)
+  var total_deaths = parseInt(data.map(d =>d.Total_Deaths))
   //console.log(total_deaths)
 
 
@@ -52,7 +52,7 @@ d3.json("/api/main/provcovid").then (function(data) {
 
   //console.log(data)
 
-  var province = data.map(d =>d.Province);
+  var province = JSON.stringify(data.map(d =>d.Province));
   var cases = parseInt(data.map(d =>d.cases));
   var deaths = parseInt(data.map(d =>d.deaths));
   var vaccinces = parseInt(data.map(d =>d.vaccines));
@@ -62,12 +62,11 @@ d3.json("/api/main/provcovid").then (function(data) {
   // console.log(cases)
   // console.log(deaths)
   // console.log(coordinates)
-  // console.log(vaccines)
+  //console.log(vaccinces)
 
   for (var i = 0; i < data.length; i++) {
 
-
-    // L.circle(coordinates, {
+    // L.circle(data[i].coordinates, {
     //   radius: 1000
     // }).addTo(canMap);
 
