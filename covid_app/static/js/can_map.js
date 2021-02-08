@@ -16,7 +16,7 @@
   
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
-    console.log(feature, layer)
+    //console.log(feature, layer)
     if (feature.properties && feature.properties.PRENAME) {
         layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr><p> Cases: </p><p> Deaths:</p><p> Vaccines Administered: </p>");
     }
@@ -25,23 +25,34 @@ function onEachFeature(feature, layer) {
 
 d3.json("/api/main/canmap").then(function(dataset) {
   //createFeatures(dataset.features);
-  console.log(dataset);
+  //console.log(dataset);
   L.geoJSON(dataset, {
     onEachFeature: onEachFeature
   }).addTo(canMap)    
 });
 
 
+d3.json("/api/main/cancovid").then (function(data) {
+
+  
+  var total_cases = (data.Total_Cases)
+  //console.log(total_cases)
+  var total_deaths = (data.Total_Deaths)
+  //console.log(total_deaths)
+
+
+});
+
 
   // Create a new choropleth layer
 
 // Load in geojson data
-var geoData = "/api/main/cancovid";
+//var geoData = "/api/main/cancovid";
   
   // Grab data with d3
-d3.json("/api/main/cancovid").then (function(data) {
+d3.json("/api/main/provcovid").then (function(data) {
 
-  console.log(data.Canadian_Cases)
+  console.log(data.Ontario)
 
 });
 
