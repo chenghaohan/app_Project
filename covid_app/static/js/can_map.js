@@ -54,8 +54,15 @@ d3.json("/api/main/provcovid").then (function(data) {
   var cases = data.map(d =>d.cases);
   var deaths = data.map(d =>d.deaths);
   var vaccinces = data.map(d =>d.vaccines);
+  var coordinates = data.map(d =>d.coordinates);
 
-  console.log(province)
+  for (var i = 0; i < data.length; i++) {
+    L.circle(coordinates, {
+      radius: 25
+    }).addTo(canMap);
+
+  console.log(JSON.stringify(province))
+  
+}
 
 });
-

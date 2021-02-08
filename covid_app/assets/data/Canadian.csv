@@ -1,16 +1,15 @@
-﻿Province,Latitude,Longitude,,,,,,,
-Newfoundland and Labrador Province,53,-60,,,,,,,
-Saskatchewan Province,55,-106,,,,,,,
-Prince Edward Island,46.25,-63,,,,,,,
-Ontario,50,-85,,,,,,,
-Nova Scotia,45,-63,,,,,,,
-Alberta Province,55,-115,,,,,,,
-British Columbia,53.726669,-127.647621,,,,,,,
-Manitoba,56.415211,-98.739075,,,,,,,
-Newfoundland and Labrador,53.135509,-57.660435,,,,,,,
-New Brunswick,46.49839,-66.159668,,,,,,,
-Quebec Province,53,-70,,,,,,,
-,,,,,,,,,
-,,,,,,,,,
-,,,,,,,,,
-,,,,,,,,,
+﻿Province,Latitude,Longitude
+Newfoundland and Labrador Province,53,-60
+Saskatchewan Province,55,-106
+Prince Edward Island,46.25,-63
+Ontario,50,-85
+Nova Scotia,45,-63
+Alberta Province,55,-115
+British Columbia,53.726669,-127.647621
+Manitoba,56.415211,-98.739075
+Newfoundland and Labrador,53.135509,-57.660435
+New Brunswick,46.49839,-66.159668
+Quebec Province,53,-70
+Nunavut,70.2998,-83.1076
+Northwest Territories,64.8255,-124.8457
+Yukon,64.2823,-135
