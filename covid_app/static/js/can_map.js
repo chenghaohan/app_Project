@@ -50,18 +50,28 @@ d3.json("/api/main/cancovid").then (function(data) {
 // Grab provincial covid data (cases, deaths, vaccines) with d3
 d3.json("/api/main/provcovid").then (function(data) {
 
+  //console.log(data)
+
   var province = data.map(d =>d.Province);
-  var cases = data.map(d =>d.cases);
-  var deaths = data.map(d =>d.deaths);
-  var vaccinces = data.map(d =>d.vaccines);
+  var cases = parseInt(data.map(d =>d.cases));
+  var deaths = parseInt(data.map(d =>d.deaths));
+  var vaccinces = parseInt(data.map(d =>d.vaccines));
   var coordinates = data.map(d =>d.coordinates);
 
-  for (var i = 0; i < data.length; i++) {
-    L.circle(coordinates, {
-      radius: 25
-    }).addTo(canMap);
+  // console.log(province)
+  // console.log(cases)
+  // console.log(deaths)
+  // console.log(coordinates)
+  // console.log(vaccines)
 
-  console.log(JSON.stringify(province))
+  for (var i = 0; i < data.length; i++) {
+
+
+    // L.circle(coordinates, {
+    //   radius: 1000
+    // }).addTo(canMap);
+
+  //console.log(JSON.stringify(province))
   
 }
 
