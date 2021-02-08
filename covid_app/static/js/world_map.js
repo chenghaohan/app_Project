@@ -1,7 +1,7 @@
 // Creating map object
 var myMap = L.map("global_map", {
     center: [40.52, 34.34],
-    zoom: 2.2
+    zoom: 1.8
   });
   
   // Adding tile layer
@@ -22,20 +22,20 @@ var geojson;
 
 function test(){
     // Grab data with d3
-    d3.json("/api/main/globalcovid").then(function(data){
+    d3.json(covid_data).then(function(data){
       console.log(data);
 })
 }
 
 test()
   // Grab data with d3
-  d3.json("/api/main/globalcovid").then(function(data){
+  d3.json(covid_data).then(function(data){
     console.log(data);
     // Create a new choropleth layer
-    geojson = L.choropleth(data, {
+    geojson = L.geojson(data, {
   
     // Define what  property in the features to use
-    valueProperty: "Worldwide_Cases",
+    valueProperty: "World Coordinates",
   
     // Set color scale
     scale: ["#ffffb2", "#b10026"],
