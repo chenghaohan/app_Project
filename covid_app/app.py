@@ -245,10 +245,10 @@ def cancovidRoute():
     for item in vaccine_data:
         vaccine_dataset.append(item)
 
-    # vaccine = []
-    # for item in vaccine_data:
-    #    vaccine.append(item[1])
-    #    total_vaccine = sum(vaccine)
+    vaccine = []
+    for item in vaccine_data:
+        vaccine.append(item[1])
+        total_vaccine = sum(vaccine)
     
     can_coor_data = session.query(canadian_coordinates.Province, canadian_coordinates.Latitude, canadian_coordinates.Longitude).all()
     can_coor_dataset = []
@@ -260,7 +260,7 @@ def cancovidRoute():
     
     output = {  "Total_Cases": total_cases,
                 "Total_Deaths": total_deaths,
-                # "Total_Vaccine": total_vaccine,
+                 "Total_Vaccine": total_vaccine,
                 "Canadian_Cases" : [cases_dataset], 
                 "Canadian_Deaths" : [deaths_dataset], 
                 "Canadian_Vaccines Admin" : [vaccine_dataset], 

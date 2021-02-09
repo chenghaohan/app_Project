@@ -28,20 +28,26 @@ function onEachFeature(feature, layer) {
 d3.json("/api/main/canmap").then(function(dataset) {
 
   L.geoJSON(dataset, {
-    onEachFeature: onEachFeature
+    onEachFeature: onEachFeature, 
+    color: "blue", 
+    opacity: 0.25
   }).addTo(canMap)    
 });
 
 // App route with total cases, deaths, and vaccines to output into HTML at top of dashboard
 
-d3.json("/api/main/cancovid").then (function(data) {
+d3.json("/api/main/cancovid").then (function(cancovid) {
 
+  var total_cases = cancovid.Total_Cases
+  console.log(total_cases)
+
+  var total_deaths = cancovid.Total_Deaths
+  console.log(total_deaths)
+
+  var total_vaccine = cancovid.Total_Vaccine
+  console.log(total_vaccine)
   
-  var total_cases = parseInt(data.map(d =>d.Total_Cases));
-  //console.log(total_cases)
-  var total_deaths = parseInt(data.map(d =>d.Total_Deaths))
-  //console.log(total_deaths)
-
+  console.log(cancovid.Canadian_Cases)
 
 });
 
