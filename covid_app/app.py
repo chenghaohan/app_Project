@@ -366,7 +366,7 @@ def provcovidRoute():
 
 @app.route("/api/main/canmap")
 def canmap(): 
-    with open("assets/data/canada_provinces.geojson", "r") as f: 
+    with open("covid_app/assets/data/canada_provinces.geojson", "r") as f: 
          canada_geojson = json.load(f)
     return jsonify(canada_geojson)
 
