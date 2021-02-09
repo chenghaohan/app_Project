@@ -3,22 +3,21 @@ body {
     margin: 0;
   }
   
-  body,
-  html {
+body,html {
     height: 100%;
   }
   
-  #map, #global_map {
+#map, #global_map {
       height: 600px;
       width: 1000px;
   }
 
-  .leaflet-popup-content {
+.leaflet-popup-content {
     text-align: center;
   }
   
   /* CSS from the Leaflet-Choropleth documentation */
-  .legend {
+.legend {
     padding: 6px 8px;
     font: 12px Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -29,37 +28,39 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
   
-  .legend ul {
+.legend ul {
     padding: 0;
     margin: 0;
     clear: both;
     list-style-type: none;
   }
   
-  .legend li {
+.legend li {
     display: inline-block;
     width: 30px;
     height: 22px;
   }
   
-  .legend .min {
+.legend .min {
     float: left;
     padding-bottom: 5px;
   }
   
-  .legend .max {
+.legend .max {
     float: right;
   }
   
-  h1 {
+h1 {
     text-align: center;
   }
   
-  table, th, td {
+table, th, td {
     border: 1px solid black;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
+    padding: 50px;
+    text-align: center;
+
   }
-  th, td {
-    padding: 10px;
-    text-align: left;    
+th { color: "light blue";
+  font-style: bold;
   }

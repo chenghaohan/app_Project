@@ -1,7 +1,7 @@
 // Creating map object
   var canMap = L.map("map", {
       center: [62.24, -96.28],
-      zoom: 3.2
+      zoom: 3.4
     });
   
 // Adding tile layer
@@ -19,7 +19,7 @@
 function onEachFeature(feature, layer) {
 
     if (feature.properties && feature.properties.PRENAME) {
-        layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr><p> Cases: </p><p> Deaths:</p><p> Vaccines Administered: </p>");
+        layer.bindPopup("<h3>" + feature.properties.PRENAME + "</h3><hr><p> Cases : </p><p> Deaths :</p><p> Vaccines Administered : </p>");
     }
 }
 
@@ -39,15 +39,19 @@ d3.json("/api/main/canmap").then(function(dataset) {
 d3.json("/api/main/cancovid").then (function(cancovid) {
 
   var total_cases = cancovid.Total_Cases
-  console.log(total_cases)
+  document.getElementById("totalCases").innerText = total_cases.toLocaleString()
+  // console.log(total_cases)
 
   var total_deaths = cancovid.Total_Deaths
-  console.log(total_deaths)
+  document.getElementById("totalDeaths").innerText = total_deaths.toLocaleString()
+  // console.log(total_deaths)
 
   var total_vaccine = cancovid.Total_Vaccine
-  console.log(total_vaccine)
+  document.getElementById("totalVaccine").innerText = total_vaccine.toLocaleString()
+
+  // console.log(total_vaccine)
   
-  console.log(cancovid.Canadian_Cases)
+  // console.log(cancovid.Canadian_Cases)
 
 });
 
