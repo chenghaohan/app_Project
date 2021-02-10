@@ -19,15 +19,43 @@ var covid_data = "/api/main/globalcovid";
   
   // Grab data with d3
   d3.json(covid_data).then(function(data){
-    console.log(data.Global_Deaths);
-    console.log(data.Global_Cases);
-    console.log(data.World_Coordinates);
-    // Create a new choropleth layer
+
+    console.log(data.GlobalDeaths);
     
+    worldDeath = data.Global_Deaths;
+    worldCases = data.Global_Cases;
+    worldLatLong = data.World_Coordinates[0];
+    
+    // Create a new choropleth layer
+    var output = []
     //coordinates countryname cases deaths 
 
-    var output = []
-    var country = output.push(L.Marker(coordinates).bindPopup(countryname, cases, deaths))
-    var countries = L.layerGroup(output)
+    // Create a new marker cluster group
+    var markers = L.markerClusterGroup();
+
+    worldLatLong.forEach(function(countrySet) {
+
+      var countryName = countrySet[0]
+      var coordinates = [countrySet[1], countrySet[2]]
+
+      worldCases.forEach(function(countryCase) {
+        if (countryName == countryCase[0]) {
+          var cases = countryCase[2]
+        }
+      });
+
+      worldDeath.forEach(function(countrydeath) {
+        if (countryName == countrydeath[0]) {
+          var deaths = countrydeath[2]
+        }
+      });
+      
+      markers.addlayer(L.Marker(coordinates).bindPopup(countryName, cases, deaths))
+    });
+
+  // Add our marker cluster layer to the map
+      myMap.addLayer(markers);
+
+    
   
   });
