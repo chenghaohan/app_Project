@@ -60,7 +60,7 @@ var covid_data = "/api/main/globalcovid";
         }
       });
       
-      markers.addlayer(L.Marker(coormarkers_config).bindPopup(countryName, cases, deaths))
+      markers.addlayer(L.Marker(markers_config).bindPopup(countryName, cases, deaths))
     });
 
   // Add our marker cluster layer to the map
