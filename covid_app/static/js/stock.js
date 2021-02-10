@@ -1,6 +1,83 @@
 // Load in stock data (json)
 var stockData = "/api/main/stockdata";
 
+function init() {
+    d3.json(stockData).then(function(data) {
+        var zoomOpen = data.map(d => d.zoom_Open);
+        var zoomClose = data.map(d => d.zoom_Close);
+        var zoomHigh = data.map(d => d.zoom_High);
+        var zoomLow = data.map(d => d.zoom_Low);
+        var zoomDate = data.map(d => d.zoom_Date)
+        const startDate = "2020-01-02";
+        const endDate = "2021-01-29";
+
+    //Closing Price line
+        var trace1 = {
+            type: "scatter",
+            mode: "lines",
+            name: "Closing Price",
+            x: zoomDate[0],
+            y: zoomClose[0],
+            line: {
+                color: "#17BECF"
+                }
+            };
+
+    // Candlestick Trace
+        var trace2 = {
+            type: "candlestick",
+            x: zoomDate[0],
+            high: zoomHigh[0],
+            low: zoomLow[0],
+            open: zoomOpen[0],
+            close: zoomClose[0]
+        };
+
+
+        var plot_data = [trace1, trace2];
+
+        var plot_layout = {
+            title: `Zoom Performance`,
+            xaxis: {
+            range: [startDate, endDate],
+            type: "date",
+            rangeselector: {
+                x: 0,
+                y: 1.2,
+                xanchor: 'left',
+                font: {size:8},
+                buttons: [{
+                step: 'month',
+                stepmode: 'backward',
+                count: 1,
+                label: '1 month'
+                }, {
+                step: 'month',
+                stepmode: 'backward',
+                count: 6,
+                label: '6 months'
+                    }, {
+            step: 'all',
+            label: 'All dates'
+                    }]
+            }
+            },
+            yaxis: {
+            autorange: true,
+            type: "linear"
+            }}
+        
+        
+        
+
+        var graphdiv = document.getElementById("stockPlot");
+
+        Plotly.newPlot(graphdiv, plot_data, plot_layout, {scrollZoom: true})
+    });
+};
+
+// ------------------------------------------------------------------------------
+d3.selectAll("#selDataset").on("change", updatePlotly);
 
 function updatePlotly() {
     d3.json(stockData).then( function (data) {
