@@ -13,6 +13,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import func
 import json
 import numpy as np
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -273,95 +274,108 @@ def cancovidRoute():
 @app.route("/api/main/provcovid")
 def provcovidRoute(): 
 
-    # ont_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Ontario").all()
-    ont_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Ontario").all()
-    ont_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Ontario").all()
-    ont_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Ontario").all()
-    ont_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Ontario").all()
+    deaths_data = session.query(can_deaths.Province, can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").order_by(can_deaths.Province.desc()).all()
+    vaccine_data = session.query(vaccine_admin.Province, vaccine_admin.Vaccine_Administered).order_by(vaccine_admin.Province.desc()).all()
+    cases_data = session.query(can_cases.Province, can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").order_by(can_cases.Province.desc()).all()
 
-    # bc_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "British Columbia").all()
-    bc_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "British Columbia").all()
-    bc_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "British Columbia").all()
-    bc_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "British Columbia").all()
-    bc_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "British Columbia").all()
+    master_dict={}
+    for i, row in enumerate(deaths_data):
+        master_dict[row[0]]={
+            'deaths': row[1],
+            'cases': cases_data[i][1],
+            'vaccines': vaccine_data[i][1]
+        }
+        
 
-    # yk_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Yukon").all()
-    yk_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Yukon").all()
-    yk_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Yukon").all()
-    yk_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Yukon").all()
-    yk_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Yukon").all()
+    # # ont_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Ontario").all()
+    # ont_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Ontario").all()
+    # ont_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Ontario").all()
+    # ont_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Ontario").all()
+    # ont_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Ontario").all()
 
+    # # bc_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "British Columbia").all()
+    # bc_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "British Columbia").all()
+    # bc_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "British Columbia").all()
+    # bc_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "British Columbia").all()
+    # bc_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "British Columbia").all()
 
-    # nwt_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Northwest Territories").all()
-    nwt_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Northwest Territories").all()
-    nwt_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Northwest Territories").all()
-    nwt_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Northwest Territories").all()
-    nwt_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Northwest Territories").all()
-
-    # nv_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nunavut").all()
-    nv_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nunavut").all()
-    nv_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Nunavut").all()
-    nv_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Nunavut").all()
-    nv_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Nunavut").all()
-
-    # ab_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Alberta").all()
-    ab_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Alberta").all()
-    ab_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Alberta").all()
-    ab_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Alberta").all()
-    ab_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Alberta Province").all()
-
-    # sw_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Saskatchewan").all()
-    sw_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Saskatchewan").all()
-    sw_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Saskatchewan").all()
-    sw_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Saskatchewan").all()
-    sw_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Saskatchewan Province").all()
-
-    # mb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Manitoba").all()
-    mb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Manitoba").all()
-    mb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Manitoba").all()
-    mb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Manitoba").all()
-    mb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Manitoba").all()
-
-    # qb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Quebec").all()
-    qb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Quebec").all()
-    qb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Quebec").all()
-    qb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Quebec").all()
-    qb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Quebec Province").all()
-
-    # nl_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Newfoundland and Labrador").all()
-    nl_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Newfoundland and Labrador").all()
-    nl_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Newfoundland and Labrador").all()
-    nl_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Newfoundland and Labrador").all()
-    nl_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Newfoundland and Labrador").all()
-
-    # pei_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Prince Edward Island").all()
-    pei_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Prince Edward Island").all()
-    pei_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Prince Edward Island").all()
-    pei_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Prince Edward Island").all()
-    pei_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Prince Edward Island").all()
-
-    # nb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "New Brunswick").all()
-    nb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "New Brunswick").all()
-    nb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "New Brunswick").all()
-    nb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "New Brunswick").all()
-    nb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "New Brunswick").all()
-
-    # ns_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nova Scotia").all()
-    ns_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nova Scotia").all()
-    ns_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Nova Scotia").all()
-    ns_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Nova Scotia").all()
-    ns_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Nova Scotia").all()
+    # # yk_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Yukon").all()
+    # yk_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Yukon").all()
+    # yk_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Yukon").all()
+    # yk_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Yukon").all()
+    # yk_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Yukon").all()
 
 
-    output = [{ "Province": "Ontario", "cases": ont_cases_data, "deaths": ont_deaths_data, "vaccines": ont_vaccine_data, "coordinates": ont_coor_data }, { "Province": "British Columbia", "cases": bc_cases_data, "deaths": bc_deaths_data, "vaccines": bc_vaccine_data, "coordinates": bc_coor_data}, 
-                { "Province": "Yukon","cases": yk_cases_data, "deaths": yk_deaths_data, "vaccines": yk_vaccine_data, "coordinates": yk_coor_data} , { "Province": "Northwest Territories","cases": nwt_cases_data, "deaths": nwt_deaths_data, "vaccines": nwt_vaccine_data, "coordinates": nwt_coor_data}, 
-                { "Province": "Nunavut", "cases": nv_cases_data, "deaths": nv_deaths_data, "vaccines": nv_vaccine_data, "coordinates": nv_coor_data} , { "Province": "Alberta","cases": ab_cases_data, "deaths": ab_deaths_data, "vaccines": ab_vaccine_data, "coordinates": ab_coor_data}, 
-                { "Province": "Saskatchewan","cases": sw_cases_data, "deaths": sw_deaths_data, "vaccines": sw_vaccine_data, "coordinates": sw_coor_data}, {  "Province": "Manitoba","cases": mb_cases_data, "deaths": mb_deaths_data, "vaccines": mb_vaccine_data, "coordinates": mb_coor_data}, 
-                { "Province": "Quebec","cases": qb_cases_data, "deaths": qb_deaths_data, "vaccines": qb_vaccine_data, "coordinates": qb_coor_data}, { "Province": "Newfoundland and Labrador", "cases": nl_cases_data, "deaths": nl_deaths_data, "vaccines": nl_vaccine_data, "coordinates": nl_coor_data}, 
-                { "Province": "Prince Edward Island","cases": pei_cases_data, "deaths": pei_deaths_data, "vaccines": pei_vaccine_data, "coordinates": pei_coor_data}, { "Province": "New Brunswick","cases": nb_cases_data, "deaths": nb_deaths_data, "vaccines": nb_vaccine_data, "coordinates": nb_coor_data}, 
-                { "Province": "Nova Scotia","cases": ns_cases_data, "deaths": ns_deaths_data, "vaccines": ns_vaccine_data, "coordinates": ns_coor_data} ]
+    # # nwt_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Northwest Territories").all()
+    # nwt_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Northwest Territories").all()
+    # nwt_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Northwest Territories").all()
+    # nwt_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Northwest Territories").all()
+    # nwt_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Northwest Territories").all()
 
-    return jsonify(output)
+    # # nv_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nunavut").all()
+    # nv_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nunavut").all()
+    # nv_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Nunavut").all()
+    # nv_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Nunavut").all()
+    # nv_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Nunavut").all()
+
+    # # ab_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Alberta").all()
+    # ab_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Alberta").all()
+    # ab_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Alberta").all()
+    # ab_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Alberta").all()
+    # ab_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Alberta Province").all()
+
+    # # sw_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Saskatchewan").all()
+    # sw_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Saskatchewan").all()
+    # sw_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Saskatchewan").all()
+    # sw_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Saskatchewan").all()
+    # sw_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Saskatchewan Province").all()
+
+    # # mb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Manitoba").all()
+    # mb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Manitoba").all()
+    # mb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Manitoba").all()
+    # mb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Manitoba").all()
+    # mb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Manitoba").all()
+
+    # # qb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Quebec").all()
+    # qb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Quebec").all()
+    # qb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Quebec").all()
+    # qb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Quebec").all()
+    # qb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Quebec Province").all()
+
+    # # nl_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Newfoundland and Labrador").all()
+    # nl_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Newfoundland and Labrador").all()
+    # nl_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Newfoundland and Labrador").all()
+    # nl_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Newfoundland and Labrador").all()
+    # nl_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Newfoundland and Labrador").all()
+
+    # # pei_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Prince Edward Island").all()
+    # pei_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Prince Edward Island").all()
+    # pei_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Prince Edward Island").all()
+    # pei_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Prince Edward Island").all()
+    # pei_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Prince Edward Island").all()
+
+    # # nb_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "New Brunswick").all()
+    # nb_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "New Brunswick").all()
+    # nb_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "New Brunswick").all()
+    # nb_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "New Brunswick").all()
+    # nb_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "New Brunswick").all()
+
+    # # ns_prov_data = session.query(can_cases.Province).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nova Scotia").all()
+    # ns_cases_data = session.query(can_cases.No_Cases).filter(can_cases.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_cases.Province == "Nova Scotia").all()
+    # ns_deaths_data = session.query(can_deaths.No_Deaths).filter(can_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").filter(can_deaths.Province == "Nova Scotia").all()
+    # ns_vaccine_data = session.query(vaccine_admin.Vaccine_Administered).filter(vaccine_admin.Province == "Nova Scotia").all()
+    # ns_coor_data = session.query(canadian_coordinates.Latitude, canadian_coordinates.Longitude).filter(canadian_coordinates.Province == "Nova Scotia").all()
+
+
+    # output = [{ "Province": "Ontario", "cases": ont_cases_data, "deaths": ont_deaths_data, "vaccines": ont_vaccine_data, "coordinates": ont_coor_data }, { "Province": "British Columbia", "cases": bc_cases_data, "deaths": bc_deaths_data, "vaccines": bc_vaccine_data, "coordinates": bc_coor_data}, 
+    #             { "Province": "Yukon","cases": yk_cases_data, "deaths": yk_deaths_data, "vaccines": yk_vaccine_data, "coordinates": yk_coor_data} , { "Province": "Northwest Territories","cases": nwt_cases_data, "deaths": nwt_deaths_data, "vaccines": nwt_vaccine_data, "coordinates": nwt_coor_data}, 
+    #             { "Province": "Nunavut", "cases": nv_cases_data, "deaths": nv_deaths_data, "vaccines": nv_vaccine_data, "coordinates": nv_coor_data} , { "Province": "Alberta","cases": ab_cases_data, "deaths": ab_deaths_data, "vaccines": ab_vaccine_data, "coordinates": ab_coor_data}, 
+    #             { "Province": "Saskatchewan","cases": sw_cases_data, "deaths": sw_deaths_data, "vaccines": sw_vaccine_data, "coordinates": sw_coor_data}, {  "Province": "Manitoba","cases": mb_cases_data, "deaths": mb_deaths_data, "vaccines": mb_vaccine_data, "coordinates": mb_coor_data}, 
+    #             { "Province": "Quebec","cases": qb_cases_data, "deaths": qb_deaths_data, "vaccines": qb_vaccine_data, "coordinates": qb_coor_data}, { "Province": "Newfoundland and Labrador", "cases": nl_cases_data, "deaths": nl_deaths_data, "vaccines": nl_vaccine_data, "coordinates": nl_coor_data}, 
+    #             { "Province": "Prince Edward Island","cases": pei_cases_data, "deaths": pei_deaths_data, "vaccines": pei_vaccine_data, "coordinates": pei_coor_data}, { "Province": "New Brunswick","cases": nb_cases_data, "deaths": nb_deaths_data, "vaccines": nb_vaccine_data, "coordinates": nb_coor_data}, 
+    #             { "Province": "Nova Scotia","cases": ns_cases_data, "deaths": ns_deaths_data, "vaccines": ns_vaccine_data, "coordinates": ns_coor_data} ]
+
+    return jsonify(master_dict)
 
 
 @app.route("/api/main/canmap")
