@@ -1,41 +1,7 @@
-// function get_province_data () {  
-//   // Grab provincial covid data (cases, deaths, vaccines) with d3
-//   d3.json("/api/main/provcovid").then (function(data) {
-  
-//     //console.log(data)
-//     console.log(data['Ontario'])
-  
-//     var province = JSON.stringify(data.map(d =>d.Province));
-//     var cases = parseInt(data.map(d =>d.cases));
-//     var deaths = parseInt(data.map(d =>d.deaths));
-//     var vaccinces = parseInt(data.map(d =>d.vaccines));
-//     var coordinates = data.map(d =>d.coordinates);
-  
-//     // console.log(province)
-//     // console.log(cases)
-//     // console.log(deaths)
-//     // console.log(coordinates)
-//     //console.log(vaccinces)
-  
-//     for (var i = 0; i < data.length; i++) {
-  
-//       // L.circle(data[i].coordinates, {
-//       //   radius: 1000
-//       // }).addTo(canMap);
-  
-//     //console.log(JSON.stringify(province))
-    
-//   }
-  
-//   })
-//   };
-
+// Read in provincial data on cases, deaths, vaccines
 
 d3.json("/api/main/provcovid").then (function(data) {
-  console.log(data)
-
-
-
+  
 
 // Creating map object
   var canMap = L.map("map", {
@@ -53,7 +19,7 @@ d3.json("/api/main/provcovid").then (function(data) {
     accessToken: API_KEY
   }).addTo(canMap);
 
-// Adding a popup on each province
+// Adding a popup on each province with cases, deaths, vaccines
 
 function onEachFeature(feature, layer) {
 
@@ -94,18 +60,13 @@ d3.json("/api/main/cancovid").then (function(cancovid) {
 
   var total_cases = cancovid.Total_Cases
   document.getElementById("totalCases").innerText = total_cases.toLocaleString()
-  // console.log(total_cases)
 
   var total_deaths = cancovid.Total_Deaths
   document.getElementById("totalDeaths").innerText = total_deaths.toLocaleString()
-  // console.log(total_deaths)
 
   var total_vaccine = cancovid.Total_Vaccine
   document.getElementById("totalVaccine").innerText = total_vaccine.toLocaleString()
 
-  // console.log(total_vaccine)
-  
-  // console.log(cancovid.Canadian_Cases)
 
 });
 
