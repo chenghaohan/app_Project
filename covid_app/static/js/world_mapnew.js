@@ -20,15 +20,15 @@
   // Grab data with d3
   d3.json(covid_data).then(function(data){
 
-    // console.log(data.World_Coordinates[0][0][0])
-    // console.log(data.World_Coordinates[0][0][1])
-    // console.log(data.World_Coordinates[0][0][2])
-    console.log(data)
+    //console.log(data.World_Coordinates[0][0][0])
+    //console.log(data.World_Coordinates[0][0][1])
+    //console.log(data.World_Coordinates[0][0][2])
+    //console.log(data)
     var markers = L.marker();
 
-    for ( i = 0 ; i < data.length ; i ++) {
-
-    L.marker(data.World_Coordinates[0][i][1],data.World_Coordinates[0][i][2])
+    for ( i = 0 ; i < data.World_Coordinates[0].length ; i ++) {
+      //console.log(data.World_Coordinates[0][i][1])
+    L.marker([data.World_Coordinates[0][i][1],data.World_Coordinates[0][i][2]])
     .bindPopup(data.World_Coordinates[0][i][0])
     .addTo(myMap)
     }

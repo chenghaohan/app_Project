@@ -20,6 +20,16 @@ var covid_data = "/api/main/globalcovid";
   // Grab data with d3
   d3.json(covid_data).then(function(data){
 
+    markers_config=data.World_Coordinates[0]
+    console.log(markers_config)
+
+    for ( i = 0 ; i < markers_config.length ; i ++) {
+      //console.log(data.World_Coordinates[0][i][1])
+    L.marker([markers_config[i][1],markers_config[i][2]])
+    .bindPopup(markers_config[i][0])
+    .addTo(myMap)
+    }
+
     console.log(data.GlobalDeaths);
     
     worldDeath = data.Global_Deaths;
@@ -50,12 +60,10 @@ var covid_data = "/api/main/globalcovid";
         }
       });
       
-      markers.addlayer(L.Marker(coordinates).bindPopup(countryName, cases, deaths))
+      markers.addlayer(L.Marker(coormarkers_config).bindPopup(countryName, cases, deaths))
     });
 
   // Add our marker cluster layer to the map
       myMap.addLayer(markers);
-
-    
   
   });
