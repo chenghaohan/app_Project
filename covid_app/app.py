@@ -403,9 +403,9 @@ def globalcovidRoute():
     for item in world_coor_data:
         world_coor_dataset.append(item)
 
-    output = { "Global Cases" : [global_cases_dataset], 
-                "Global Deaths" : [global_deaths_dataset], 
-                "World Coordinates" : [world_coor_dataset]}
+    output = { "Global_Cases" : [global_cases_dataset], 
+                "Global_Deaths" : [global_deaths_dataset], 
+                "World_Coordinates" : [world_coor_dataset]}
     return jsonify(output)
 
 
