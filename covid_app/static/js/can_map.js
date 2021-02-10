@@ -34,9 +34,9 @@ function onEachFeature(feature, layer) {
           return obj;
         }, {});
 
-        console.log(prov_data)
+        
 
-      layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases} </p><p> Deaths : ${prov_data[allowed].deaths}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines}</p>`);
+      layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
       }
 }
 
