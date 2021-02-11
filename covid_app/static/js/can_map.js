@@ -1,26 +1,3 @@
-// Define function to set the province color based on the number of cases
-
-function provColor(cases) {
-  if (cases < 50000) {
-    return "#7f98b9"
-  }
-  else if (cases < 100000) {
-    return "#6783a9"
-  }
-  else if (cases < 150000) {
-    return "#4f6e9a"
-  }
-  else if (cases < 200000) {
-    return "#20457b"
-  }
-  else {
-    return "#08306b"
-  }
-};
-
-
-
-
 // Read in provincial data on cases, deaths, vaccines
 
 d3.json("/api/main/provcovid").then (function(data) {
@@ -46,7 +23,6 @@ d3.json("/api/main/provcovid").then (function(data) {
 
 function onEachFeature(feature, layer) {
 
-
     if (feature.properties && feature.properties.PRENAME) {
       const allowed = feature.properties.PRENAME;
 
@@ -58,13 +34,40 @@ function onEachFeature(feature, layer) {
         }, {});
 
 // Event handling on mouseover and mouseout
-      layer.on({
-          mouseover: mouseOverActions,
-          mouseout: function (e) {provinces.resetStyle(e.target)}
+    layer.on({
+        mouseover: mouseOverActions
+          // mouseout: function (e) {provinces.resetStyle(e.target)
+          // }
         }).addTo(canMap);      
-
-      layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
-      }
+    
+    var color = "";
+    if (prov_data[allowed].cases < 50000) {
+      color = "#fcfad2";
+    }
+    else if (prov_data[allowed].cases < 100000) {
+      color = "#bad5a9";
+    }
+    else if (prov_data[allowed].cases < 150000) {
+      color = "#84cbbb";
+    }
+    else if (prov_data[allowed].cases < 200000) {
+      color = "#48b7c1";
+    }
+    else if (prov_data[allowed].cases < 250000) {
+      color = "#3382b5";
+    }
+    else {
+      color = "#253c90";
+    }
+    
+    layer.setStyle({
+      fillcolor: color, 
+      color: color,
+      opacity:1,
+      fillOpacity: 1
+    });
+    layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
+    }
 
 }
 
@@ -74,10 +77,44 @@ d3.json("/api/main/canmap").then(function(dataset) {
 
   var provinces = L.geoJSON(dataset, {
     onEachFeature: onEachFeature, 
-    color:"blue" ,
-    opacity: 0.25
+    // color : "blue",
+    // // color: color,
+    // opacity: 0.25
   }).addTo(canMap)    
 });
+
+// color function to be used when creating the legend
+function getColor(d) {
+  return d > 250000? '#253c90' :
+         d > 200000 ? '#3382b5' :
+         d > 150000 ? '#48b7c1' :
+         d > 100000  ? '#84cbbb' :
+         d > 50000  ? '#bad5a9' :
+                  '#fcfad2';
+}
+
+     // Add legend to the map
+var legend = L.control({ position: "bottomright" });
+  
+legend.onAdd = function (canMap) {
+  
+      var div = L.DomUtil.create("div", "info legend");
+          mags = [0, 50000, 100000, 150000, 200000, 250000];
+          labels = [`<strong><h5>Case Count</h5></strong>`];
+  
+      // loop through our density intervals and generate a label with a colored square for each interval
+      for (var i = 0; i < mags.length; i++) {
+          div.innerHTML +=
+          labels.push(
+              '<i style="background:' + getColor(mags[i] + 1) + '"></i> ' +
+              mags[i] + (mags[i + 1] ? '&ndash;' + mags[i + 1] + '<br>' : '+'));
+      }
+        div.innerHTML = labels.join('<br>');
+      return div;
+};
+  
+legend.addTo(canMap);
+
 
 })
 
@@ -109,6 +146,7 @@ d3.json("/api/main/cancovid").then (function(cancovid) {
 
 
 });
+
 
 
 
