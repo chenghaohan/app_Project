@@ -1,3 +1,26 @@
+// Define function to set the province color based on the number of cases
+
+function provColor(cases) {
+  if (cases < 50000) {
+    return "#7f98b9"
+  }
+  else if (cases < 100000) {
+    return "#6783a9"
+  }
+  else if (cases < 150000) {
+    return "#4f6e9a"
+  }
+  else if (cases < 200000) {
+    return "#20457b"
+  }
+  else {
+    return "#08306b"
+  }
+};
+
+
+
+
 // Read in provincial data on cases, deaths, vaccines
 
 d3.json("/api/main/provcovid").then (function(data) {
@@ -42,8 +65,8 @@ function onEachFeature(feature, layer) {
 
       layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
       }
-}
 
+}
 
 //GeoJson data for coordinates outlining Provinces
 
@@ -51,7 +74,7 @@ d3.json("/api/main/canmap").then(function(dataset) {
 
   var provinces = L.geoJSON(dataset, {
     onEachFeature: onEachFeature, 
-    color: 'blue', 
+    color:"blue" ,
     opacity: 0.25
   }).addTo(canMap)    
 });
