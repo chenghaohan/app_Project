@@ -25,7 +25,7 @@ engine = create_engine("postgresql+psycopg2://cggjytcd:2Lf6GkD0Cb8TbV6e4-X7ZBCvN
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
-print(Base.classes.keys())
+
 can_cases = Base.classes.can_cases
 can_deaths = Base.classes.can_deaths
 vaccine_admin = Base.classes.vaccine_admin

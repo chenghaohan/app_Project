@@ -34,15 +34,39 @@ function onEachFeature(feature, layer) {
         }, {});
 
 // Event handling on mouseover and mouseout
+
+    function mouseOverActions(e) {
+      var layer = e.target;
+      // change region style when hover over
+      layer.setStyle({
+          color: color, //shape border color
+          dashArray: '',
+          weight: 2,
+          opacity: 1, 
+          fillOpacity: 1
+      });
+      layer.openPopup();
+    }
+
+    function mouseOutActions(e) {
+      var layer = e.target;
+      // change region style when hover over
+      layer.setStyle({
+        fillcolor: color, 
+        color: color,
+        opacity:1,
+        fillOpacity: 0.7
+      });
+    }
+
     layer.on({
-        mouseover: mouseOverActions
-          // mouseout: function (e) {provinces.resetStyle(e.target)
-          // }
+        mouseover: mouseOverActions,
+        mouseout: mouseOutActions
         }).addTo(canMap);      
     
     var color = "";
     if (prov_data[allowed].cases < 50000) {
-      color = "#fcfad2";
+      color = "#fdb674";
     }
     else if (prov_data[allowed].cases < 100000) {
       color = "#bad5a9";
@@ -64,7 +88,7 @@ function onEachFeature(feature, layer) {
       fillcolor: color, 
       color: color,
       opacity:1,
-      fillOpacity: 1
+      fillOpacity: 0.7
     });
     layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
     }
@@ -90,7 +114,7 @@ function getColor(d) {
          d > 150000 ? '#48b7c1' :
          d > 100000  ? '#84cbbb' :
          d > 50000  ? '#bad5a9' :
-                  '#fcfad2';
+                  '#fdb674';
 }
 
      // Add legend to the map
@@ -118,18 +142,20 @@ legend.addTo(canMap);
 
 })
 
-// Event handling on mouseover and mouseout
-function mouseOverActions(e) {
-  var layer = e.target;
-  // change region style when hover over
-  layer.setStyle({
-      color: 'black', //shape border color
-      dashArray: '',
-      weight: 2,
-      opacity: 1
-  });
-  layer.openPopup();
-}
+// // Event handling on mouseover and mouseout
+// function mouseOverActions(e) {
+//   var layer = e.target;
+//   // change region style when hover over
+//   layer.setStyle({
+//        color: 'black', //shape border color
+//        dashArray: '',
+//        weight: 2,
+//        opacity: 0.5
+//    });
+//   layer.openPopup();
+// }
+
+
 
 // App route with total cases, deaths, and vaccines to output into HTML at top of dashboard
 
