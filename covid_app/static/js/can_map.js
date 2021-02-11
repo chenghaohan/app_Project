@@ -39,7 +39,7 @@ function onEachFeature(feature, layer) {
       var layer = e.target;
       // change region style when hover over
       layer.setStyle({
-          color: color, //shape border color
+          color: color, 
           dashArray: '',
           weight: 2,
           opacity: 1, 
@@ -50,13 +50,14 @@ function onEachFeature(feature, layer) {
 
     function mouseOutActions(e) {
       var layer = e.target;
-      // change region style when hover over
+      // change region style when hover out - back to default
       layer.setStyle({
         fillcolor: color, 
         color: color,
         opacity:1,
         fillOpacity: 0.7
       });
+      
     }
 
     layer.on({
@@ -64,6 +65,8 @@ function onEachFeature(feature, layer) {
         mouseout: mouseOutActions
         }).addTo(canMap);      
     
+
+    //Set color of province layers based on number of cases
     var color = "";
     if (prov_data[allowed].cases < 50000) {
       color = "#fdb674";
@@ -92,7 +95,7 @@ function onEachFeature(feature, layer) {
     });
     layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
     }
-
+    
 }
 
 //GeoJson data for coordinates outlining Provinces
@@ -101,9 +104,7 @@ d3.json("/api/main/canmap").then(function(dataset) {
 
   var provinces = L.geoJSON(dataset, {
     onEachFeature: onEachFeature, 
-    // color : "blue",
-    // // color: color,
-    // opacity: 0.25
+
   }).addTo(canMap)    
 });
 
@@ -117,7 +118,7 @@ function getColor(d) {
                   '#fdb674';
 }
 
-     // Add legend to the map
+// Add legend to the map
 var legend = L.control({ position: "bottomright" });
   
 legend.onAdd = function (canMap) {
@@ -126,7 +127,7 @@ legend.onAdd = function (canMap) {
           mags = [0, 50000, 100000, 150000, 200000, 250000];
           labels = [`<strong><h5>Case Count</h5></strong>`];
   
-      // loop through our density intervals and generate a label with a colored square for each interval
+      // loop through intervals and generate a label with a colored square for each interval
       for (var i = 0; i < mags.length; i++) {
           div.innerHTML +=
           labels.push(
@@ -141,20 +142,6 @@ legend.addTo(canMap);
 
 
 })
-
-// // Event handling on mouseover and mouseout
-// function mouseOverActions(e) {
-//   var layer = e.target;
-//   // change region style when hover over
-//   layer.setStyle({
-//        color: 'black', //shape border color
-//        dashArray: '',
-//        weight: 2,
-//        opacity: 0.5
-//    });
-//   layer.openPopup();
-// }
-
 
 
 // App route with total cases, deaths, and vaccines to output into HTML at top of dashboard
