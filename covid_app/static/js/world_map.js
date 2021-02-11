@@ -21,8 +21,11 @@ var covid_data = "/api/main/globalcovid";
   d3.json(covid_data).then(function(data){
 
     markers_config=data.World_Coordinates[0]
+    markers_pop1=data.Global_Cases[0]
+    markers_pop2=data.Global_Deaths[0]
     console.log(markers_config)
-
+    console.log(markers_pop1)
+    console.log(markers_pop2)
     for ( i = 0 ; i < markers_config.length ; i ++) {
       //console.log(data.World_Coordinates[0][i][1])
     L.marker([markers_config[i][1],markers_config[i][2]])
@@ -30,11 +33,8 @@ var covid_data = "/api/main/globalcovid";
     .addTo(myMap)
     }
 
-    console.log(data.GlobalDeaths);
-    
     worldDeath = data.Global_Deaths;
     worldCases = data.Global_Cases;
-    worldLatLong = data.World_Coordinates[0];
     
     // Create a new choropleth layer
     var output = []
@@ -43,7 +43,7 @@ var covid_data = "/api/main/globalcovid";
     // Create a new marker cluster group
     var markers = L.markerClusterGroup();
 
-    worldLatLong.forEach(function(countrySet) {
+    markers_config.forEach(function(countrySet) {
 
       var countryName = countrySet[0]
       var coordinates = [countrySet[1], countrySet[2]]
