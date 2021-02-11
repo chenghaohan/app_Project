@@ -34,7 +34,11 @@ function onEachFeature(feature, layer) {
           return obj;
         }, {});
 
-        
+// Event handling on mouseover and mouseout
+      layer.on({
+          mouseover: mouseOverActions,
+          mouseout: function (e) {provinces.resetStyle(e.target)}
+        }).addTo(canMap);      
 
       layer.bindPopup("<h3>" + feature.properties.PRENAME + `</h3><hr><p> Cases : ${prov_data[allowed].cases.toLocaleString()} </p><p> Deaths : ${prov_data[allowed].deaths.toLocaleString()}</p><p> Vaccines Administered : ${prov_data[allowed].vaccines.toLocaleString()}</p>`);
       }
@@ -45,14 +49,27 @@ function onEachFeature(feature, layer) {
 
 d3.json("/api/main/canmap").then(function(dataset) {
 
-  L.geoJSON(dataset, {
+  var provinces = L.geoJSON(dataset, {
     onEachFeature: onEachFeature, 
-    color: "blue", 
+    color: 'blue', 
     opacity: 0.25
   }).addTo(canMap)    
 });
 
 })
+
+// Event handling on mouseover and mouseout
+function mouseOverActions(e) {
+  var layer = e.target;
+  // change region style when hover over
+  layer.setStyle({
+      color: 'black', //shape border color
+      dashArray: '',
+      weight: 2,
+      opacity: 1
+  });
+  layer.openPopup();
+}
 
 // App route with total cases, deaths, and vaccines to output into HTML at top of dashboard
 
