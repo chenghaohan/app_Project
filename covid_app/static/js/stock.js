@@ -150,7 +150,7 @@ function updatePlotly() {
         };
     
     var plot_layout = {
-            title: `${stockname} Perfromance`,
+            title: `${stockname} Performance`,
             xaxis: {
             range: [startDate, endDate],
             type: "date",
