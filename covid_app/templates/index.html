@@ -22,17 +22,18 @@
 </head>
 
 <body>
-
+  <div style="background-image:url(/covid_app/Images/background_image.jpg)">
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>COVID-19 Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
-        <p>Data from Jan 1, 2020 to Jan 31, 2021</p>
+      <div id= "jumbo" class="col-md-12 jumbotron text-center">
+        <h1 class="jumbo-text">COVID-19 Dashboard</h1>
+        <p class="jumbo-text">Use the interactive charts below to explore the dataset</p>
+        <p class="jumbo-text">Data from Jan 1, 2020 to Jan 31, 2021</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
       <h2>Canada COVID-19 Map</h2>
       </div>
     </div>
@@ -49,15 +50,7 @@
       </tr>
     </table>
     <h4>Hover over the Canadian provinces below for more COVID-19 data</h4>
-    <!-- <div class="row">
-      <div class = "col-md-12">
-        <button type = "buttons" id="btnCase">Cases</button>
-        <button type = "buttons" id="btnDeaths">Deaths</button>
-        <button type = "buttons" id="btnVaccines">Vaccines</button>
-      </div>
-    </div>
-    <br> -->
-   <div class="row">
+    <div class="row">
      <div class="col-md-12"></div>
                  <div id="map">
     </div>
@@ -69,10 +62,11 @@
           <th><h4><strong>  Global Deaths  </strong></h4></th>
         </tr>
         <tr>
-          <td id="Global Cases"></td>
-          <td id ="Global Deaths"></td>
+          <td id="totalGlobalCases"></td>
+          <td id ="totalGlobalDeaths"></td>
         </tr>
       </table>
+      <h4>Hover over the countries below for more COVID-19 data</h4>
       <div class="row">
         <div class="col-md-12">
     </div>  
@@ -90,7 +84,8 @@
     <div id="stockPlot"></div>
        
   </div>
-
+</div>
+  </div>
 
 
   <!-- Leaflet JS-->
