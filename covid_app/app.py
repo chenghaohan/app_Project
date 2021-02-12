@@ -52,21 +52,22 @@ def main():
 
 @app.route("/api/main/news")
 def newsRoute(): 
-    #pulling zoom prices from SQL server
+    #pulling news table from SQL server
     news = session.query(cnn_news.Date,cnn_news.Event).all()
     
-    news_Date = []
-    for item in news:
-        news_Date.append(item[0])
+    news_data = []
+
+    for i in news:
+        date = i[0].strftime("%m/%d/%Y")
+
+        # convert date to string date via datetime strftime function
+        event = i[1]
+
+        news_output = {"event": event, "news_Date": date }
+
+        news_data.append(news_output)
     
-    news_Event = []
-    for item in news:
-        news_Event.append(item[1])
-    
-    news_output = { "news_Date" : news_Date,
-               "event" : news_Event
-     }
-    return jsonify(news_output)
+    return jsonify(news_data)
 
 
 ## Stock Prices
