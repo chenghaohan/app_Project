@@ -23,47 +23,74 @@ var covid_data = "/api/main/globalcovid";
     markers_config=data.World_Coordinates[0]
     markers_pop1=data.Global_Cases[0]
     markers_pop2=data.Global_Deaths[0]
-    console.log(markers_config)
     console.log(markers_pop1)
+    console.log(markers_config)
     console.log(markers_pop2)
+    
     for ( i = 0 ; i < markers_config.length ; i ++) {
       //console.log(data.World_Coordinates[0][i][1])
+      for (c = 0 ; c < markers_pop1.length ; c ++) {
+        if (markers_config[i][0] ==  markers_pop1[c][0]) {
+          var cases = markers_pop1[c][2]}}
+          // console.log(cases)
+
+      for (d = 0 ; d < markers_pop2.length ; d ++) {
+          if (markers_config[i][0] == markers_pop2[d][0]) {
+            var deaths = markers_pop2[d][2]}}
+            // console.log(deaths)
+
     L.marker([markers_config[i][1],markers_config[i][2]])
-    .bindPopup(markers_config[i][0])
+    .bindPopup("<h3>" + markers_config[i][0] + `</h3><hr><p> Cases : ${cases.toLocaleString()} </p><p> Deaths : ${deaths.toLocaleString()}</p>`)
+  
     .addTo(myMap)
     }
 
-    worldDeath = data.Global_Deaths;
-    worldCases = data.Global_Cases;
+
+  //   worldDeath = data.Global_Deaths;
+  //   worldCases = data.Global_Cases;
     
-    // Create a new choropleth layer
-    var output = []
-    //coordinates countryname cases deaths 
+  //   // Create a new choropleth layer
+  //   var output = []
+  //   //coordinates countryname cases deaths 
 
-    // Create a new marker cluster group
-    var markers = L.markerClusterGroup();
+  //   // Create a new marker cluster group
+  //   var markers = L.markerClusterGroup();
 
-    markers_config.forEach(function(countrySet) {
+  //   markers_config.forEach(function(countrySet) {
 
-      var countryName = countrySet[0]
-      var coordinates = [countrySet[1], countrySet[2]]
+  //     var countryName = countrySet[0]
+  //     var coordinates = [countrySet[1], countrySet[2]]
 
-      worldCases.forEach(function(countryCase) {
-        if (countryName == countryCase[0]) {
-          var cases = countryCase[2]
-        }
-      });
+  //     worldCases.forEach(function(countryCase) {
+  //       if (countryName == countryCase[0]) {
+  //         var cases = countryCase[2]
+  //       }
+  //     });
 
-      worldDeath.forEach(function(countrydeath) {
-        if (countryName == countrydeath[0]) {
-          var deaths = countrydeath[2]
-        }
-      });
+  //     worldDeath.forEach(function(countrydeath) {
+  //       if (countryName == countrydeath[0]) {
+  //         var deaths = countrydeath[2]
+  //       }
+  //     });
       
-      markers.addlayer(L.Marker(markers_config).bindPopup(countryName, cases, deaths))
-    });
+  //     markers.addlayer(L.Marker(markers_config).bindPopup(countryName, cases, deaths))
+  //   });
 
-  // Add our marker cluster layer to the map
-      myMap.addLayer(markers);
+  // // Add our marker cluster layer to the map
+  //     myMap.addLayer(markers);
   
   });
+
+
+  d3.json("/api/main/globalcovid").then (function(globalcovid) {
+
+    var total_global_cases = globalcovid.Total_Global_Cases
+    document.getElementById("totalGlobalCases").innerText = total_global_cases.toLocaleString()
+  
+    var total_global_deaths = globalcovid.Total_Global_Deaths
+    document.getElementById("totalGlobalDeaths").innerText = total_global_deaths.toLocaleString()
+  
+  
+  
+  });
+  

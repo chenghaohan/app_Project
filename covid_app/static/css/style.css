@@ -80,3 +80,11 @@ th { color: "light blue";
   margin-right: 8px;
   opacity: 0.7;
 }
+
+#jumbo {
+  background-image: url(/covid_app/Images/covid_1.jpg);
+}
+
+#jumbo-text {
+  color: white;
+}
