@@ -81,3 +81,17 @@ markers_pop2[country,time,deaths]
   //     myMap.addLayer(markers);
   
   });
+
+
+  d3.json("/api/main/globalcovid").then (function(globalcovid) {
+
+    var total_global_cases = globalcovid.Total_Global_Cases
+    document.getElementById("totalGlobalCases").innerText = total_global_cases.toLocaleString()
+  
+    var total_global_deaths = globalcovid.Total_Global_Deaths
+    document.getElementById("totalGlobalDeaths").innerText = total_global_deaths.toLocaleString()
+  
+  
+  
+  });
+  
