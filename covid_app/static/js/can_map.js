@@ -110,11 +110,11 @@ d3.json("/api/main/canmap").then(function(dataset) {
 
 // color function to be used when creating the legend
 function getColor(d) {
-  return d > 250000? '#253c90' :
-         d > 200000 ? '#3382b5' :
-         d > 150000 ? '#48b7c1' :
-         d > 100000  ? '#84cbbb' :
-         d > 50000  ? '#bad5a9' :
+  return d > 250? '#253c90' :
+         d > 200 ? '#3382b5' :
+         d > 150 ? '#48b7c1' :
+         d > 100  ? '#84cbbb' :
+         d > 50  ? '#bad5a9' :
                   '#fdb674';
 }
 
@@ -124,8 +124,8 @@ var legend = L.control({ position: "bottomright" });
 legend.onAdd = function (canMap) {
   
       var div = L.DomUtil.create("div", "info legend");
-          mags = [0, 50000, 100000, 150000, 200000, 250000];
-          labels = [`<strong><h5>Case Count</h5></strong>`];
+          mags = [0, 50, 100, 150, 200, 250];
+          labels = [`<strong><h5>Case Count (Thousands)</h5></strong>`];
   
       // loop through intervals and generate a label with a colored square for each interval
       for (var i = 0; i < mags.length; i++) {
