@@ -23,7 +23,9 @@ var covid_data = "/api/main/globalcovid";
     markers_config=data.World_Coordinates[0]
     markers_pop1=data.Global_Cases[0]
     markers_pop2=data.Global_Deaths[0]
-
+    console.log(markers_pop1)
+    console.log(markers_config)
+    console.log(markers_pop2)
     
     for ( i = 0 ; i < markers_config.length ; i ++) {
       //console.log(data.World_Coordinates[0][i][1])
@@ -38,7 +40,7 @@ var covid_data = "/api/main/globalcovid";
             // console.log(deaths)
 
     L.marker([markers_config[i][1],markers_config[i][2]])
-    .bindPopup("<h3>" + markers_config[i][0] + `</h3><hr><p> Cases : ${cases} </p><p> Deaths : ${deaths}</p>`)
+    .bindPopup("<h3>" + markers_config[i][0] + `</h3><hr><p> Cases : ${cases.toLocaleString()} </p><p> Deaths : ${deaths.toLocaleString()}</p>`)
   
     .addTo(myMap)
     }
