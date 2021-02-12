@@ -39,7 +39,7 @@ var covid_data = "/api/main/globalcovid";
             var deaths = markers_pop2[d][2]}}
             // console.log(deaths)
 
-    L.marker([markers_config[i][1],markers_config[i][2]])
+    L.circle([markers_config[i][1],markers_config[i][2]],{radius: cases*0.1})
     .bindPopup("<h3>" + markers_config[i][0] + `</h3><hr><p> Cases : ${cases.toLocaleString()} </p><p> Deaths : ${deaths.toLocaleString()}</p>`)
   
     .addTo(myMap)
