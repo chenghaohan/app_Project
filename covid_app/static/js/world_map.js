@@ -23,29 +23,28 @@ var covid_data = "/api/main/globalcovid";
     markers_config=data.World_Coordinates[0]
     markers_pop1=data.Global_Cases[0]
     markers_pop2=data.Global_Deaths[0]
-    console.log(markers_config)
     console.log(markers_pop1)
+    console.log(markers_config)
     console.log(markers_pop2)
     
-markers_config[country, latitude, longtitude]
-markers_pop1[country.time,cases]
-markers_pop2[country,time,deaths]
-
-
     for ( i = 0 ; i < markers_config.length ; i ++) {
       //console.log(data.World_Coordinates[0][i][1])
       for (c = 0 ; c < markers_pop1.length ; c ++) {
-        if (markers_config[0] ==  markers_pop1[0]) {
-          var cases = markers_pop1[2]}}
+        if (markers_config[i][0] ==  markers_pop1[c][0]) {
+          var cases = markers_pop1[c][2]}}
+          // console.log(cases)
 
       for (d = 0 ; d < markers_pop2.length ; d ++) {
-          if (markers_config[0] == markers_pop2[0]) {
-            var deaths = markers_pop2[2]}}
+          if (markers_config[i][0] == markers_pop2[d][0]) {
+            var deaths = markers_pop2[d][2]}}
+            // console.log(deaths)
 
-    L.marker([markers_config[i][1],markers_config[i][2]])
-    .bindPopup(markers_config[i][0], cases, deaths)
+    L.circle([markers_config[i][1],markers_config[i][2]],{radius: cases*0.05})
+    .bindPopup("<h3>" + markers_config[i][0] + `</h3><hr><p> Cases : ${cases.toLocaleString()} </p><p> Deaths : ${deaths.toLocaleString()}</p>`)
+  
     .addTo(myMap)
     }
+
 
   //   worldDeath = data.Global_Deaths;
   //   worldCases = data.Global_Cases;
@@ -81,3 +80,17 @@ markers_pop2[country,time,deaths]
   //     myMap.addLayer(markers);
   
   });
+
+
+  d3.json("/api/main/globalcovid").then (function(globalcovid) {
+
+    var total_global_cases = globalcovid.Total_Global_Cases
+    document.getElementById("totalGlobalCases").innerText = total_global_cases.toLocaleString()
+  
+    var total_global_deaths = globalcovid.Total_Global_Deaths
+    document.getElementById("totalGlobalDeaths").innerText = total_global_deaths.toLocaleString()
+  
+  
+  
+  });
+  

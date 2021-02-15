@@ -52,21 +52,22 @@ def main():
 
 @app.route("/api/main/news")
 def newsRoute(): 
-    #pulling zoom prices from SQL server
+    #pulling news table from SQL server
     news = session.query(cnn_news.Date,cnn_news.Event).all()
     
-    news_Date = []
-    for item in news:
-        news_Date.append(item[0])
+    news_data = []
+
+    for i in news:
+        date = i[0].strftime("%m/%d/%Y")
+
+        # convert date to string date via datetime strftime function
+        event = i[1]
+
+        news_output = {"event": event, "news_Date": date }
+
+        news_data.append(news_output)
     
-    news_Event = []
-    for item in news:
-        news_Event.append(item[1])
-    
-    news_output = { "news_Date" : news_Date,
-               "event" : news_Event
-     }
-    return jsonify(news_output)
+    return jsonify(news_data)
 
 
 ## Stock Prices
@@ -289,7 +290,7 @@ def provcovidRoute():
 
     return jsonify(master_dict)
 
-
+## Geographic outline of Canadian Provinces
 @app.route("/api/main/canmap")
 def canmap(): 
     with open("covid_app/assets/data/canada_provinces.geojson", "r") as f: 
@@ -304,11 +305,21 @@ def globalcovidRoute():
     global_cases_dataset = []   
     for item in global_cases_data:
         global_cases_dataset.append(item)
+
+    global_cases_tl = []
+    for item in global_cases_data:
+       global_cases_tl.append(item[2])
+       total_global_cases = sum(global_cases_tl)
     
     global_deaths_data = session.query(global_deaths.Country, global_deaths.Date_dt, global_deaths.No_Deaths).filter(global_deaths.Date_dt =="Sun, 31 Jan 2021 00:00:00 GMT").all()
     global_deaths_dataset = []
     for item in global_deaths_data:
         global_deaths_dataset.append(item)
+    
+    global_deaths_tl = []
+    for item in global_deaths_data:
+       global_deaths_tl.append(item[2])
+       global_total_deaths = sum(global_deaths_tl)
     
     world_coor_data = session.query(world_coordinates.Country, world_coordinates.Latitude, world_coordinates.Longitude).all()
     world_coor_dataset = []
@@ -317,7 +328,9 @@ def globalcovidRoute():
 
     output = { "Global_Cases" : [global_cases_dataset], 
                 "Global_Deaths" : [global_deaths_dataset], 
-                "World_Coordinates" : [world_coor_dataset]}
+                "World_Coordinates" : [world_coor_dataset], 
+                "Total_Global_Cases": [total_global_cases], 
+                "Total_Global_Deaths": [global_total_deaths]}
     return jsonify(output)
 
 
