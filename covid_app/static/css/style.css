@@ -81,10 +81,53 @@ th { color: "light blue";
   opacity: 0.7;
 }
 
-#jumbo {
-  background-image: url(/covid_app/Images/covid_1.jpg);
+/* .container-fluid {
+  height: 250px;
+  max-width:1170px;
+  background-image: url(/Images/covid_1.jpg);
+  color: white;
+  font-size: 100cm;
+  text-align: center;
+} */
+
+.lead {
+  text-align: center;
 }
 
-#jumbo-text {
+.jumbotron {
+  margin-left: 120px;
+  background-image: url(/covid_app/Images/covid.jpg);
+  text-align: center;
+  font-weight: 900;
+  max-width: 1600px;
+}
+
+.card-header {
+  font-size: 30px;
+  text-align: center;
+  background-color: pink;
+  max-width: 1600px;
+  margin-left: 120px;
+}
+
+.card-body {
+  font-size: 30px;
+  text-align: center;
+  max-width: 1600px;
+  margin-left: 120px;
+}
+/* h1 {
   color: white;
+  font-weight: 900;
+  font-size: x-large;
+} */
+
+/* .jumbo-text {
+  color:white;
+} */
+
+.col {
+  font-size: 30px;
+  text-align: center;
+  max-width: 1600px;
 }
