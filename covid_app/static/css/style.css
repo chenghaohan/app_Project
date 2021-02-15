@@ -10,6 +10,10 @@ body,html {
 #map, #global_map {
       height: 600px;
       width: 1000px;
+      margin-left: 80px;
+      margin-right: 80px;
+      border: #555;
+      margin-top: 20px;
   }
 
 .leaflet-popup-content {
@@ -91,6 +95,11 @@ th { color: "light blue";
   max-width: 1600px;
 }
 
+.card {
+  color: black;
+  background-color:chocolate;
+}
+
 .card-header {
   font-size: 30px;
   text-align: center;
@@ -110,8 +119,5 @@ th { color: "light blue";
   font-size: 30px;
   text-align: center;
   max-width: 1600px;
+  margin-top: 40px;
 }
-
-#global_map {
-  text-align: center;
-} 
