@@ -199,6 +199,10 @@ init();
 
 // var newsData = "/api/main/news";
 
+// d3.json(newsData).then(function() {
+    
+// })
+
 // var button = d3.select("#filter-btn")
 // // Select the form
 // var form = d3.select("form");
