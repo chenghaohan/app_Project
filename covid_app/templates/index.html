@@ -131,6 +131,24 @@
             </div>
           </div>
         </div>
+        <div>
+          <form>
+            <label for="newsDate">Select COVID-19 Event Date:</label>
+            <input type="date" id="newsDate" min="2019-12-31" max="2020-12-31">
+            <p><button id="news_btn">Check Events!</button></p>
+          </form>
+        </div> 
+        <div id="table-area" class="">
+          <table id="news-table" class="table table-striped">
+            <thead>
+              <tr>
+                <th class="table-head">Event</th>
+                <th class="table-head">News_Date</th>
+              </tr>
+            </thead>
+            <tbody id="myTable"></tbody>
+          </table>
+        </div>
 
         <!-- Leaflet JS-->
         <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
