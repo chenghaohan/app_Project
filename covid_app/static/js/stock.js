@@ -200,39 +200,38 @@ function updatePlotly() {
 init();
 
 //---------------------------------------------------------------------------------
-
-// var newsData = "/api/main/news";
-
-// d3.json(newsData).then(function() {
-    
-// })
-
-// var button = d3.select("#filter-btn")
-// // Select the form
-// var form = d3.select("form");
-// // Select the table body
-// var tableBody = d3.select("tbody")
-// // Create event handles
-// button.on("click", runEnter);
-// form.on("submit", runEnter);
-// // Complete the event handler for the form
-// function runEnter() {
-//     // Prevent the page from refreshing
-//     d3.event.preventDefault();
-//     // Select the input element 
-//     var inputDate = d3.select("#inputDate");
-//     // Get the value property of the input element
-//     var inputValue = inputDate.property("value");
-//     // Filter data based on input date
-//     var filteredData = newsData.filter(data => data.news_Date === inputValue);
-//     // Clear table body of previous filter
-//     tableBody.html(" ");
-//     //Loop through filtered data and add to table data
-//     filteredData.forEach(function(item) {
-//         var row = tableBody.append("tr");
-//         Object.entries(item).forEach(function([key, value]){
-//             var cell = row.append("td");
-//             cell.text(value);
-//         });
-//     });
-// };
+var newsData = "/api/main/news";
+var button = d3.select("#news_btn");
+// Select the form
+var form = d3.select("form");
+// Create event handles
+button.on("click", runEnter);
+form.on("submit", runEnter);
+// Complete the event handler for the form
+function runEnter(){
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+    // Select the input element 
+    var inputValue = d3.select("#newsDate");
+    // Get the value property of the input element
+    var inputDate = inputValue.property("value").toString();
+    //Filter data based on input date
+    d3.json(newsData).then(function(news){
+        // Select the table body
+        var tableBody = document.getElementById("#myTable");
+        var event_of_day = news.filter(n => n.News_Date === inputDate);
+        // var output = event_of_day.map(n => n.event);
+        // tableBody.html(" ");
+        event_of_day.forEach(function (item){
+            var tableBody = document.getElementById("#myTable");
+            var row = tableBody.insertRow();
+            Object.entries(item).forEach( function([key, value]){
+                var cell = row.append("td");
+                cell.text(value);
+            // var cell1 = row.insertCell();
+            // var cell2 = roww.insertCell();
+            // cell1.innerHTML = item.map(i => i.Event);
+            // cell2.innerHTML = item.map(i => i.News_Date)
+            });
+        });
+    })}
