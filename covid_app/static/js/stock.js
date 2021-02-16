@@ -38,6 +38,8 @@ function init() {
 
         var plot_layout = {
             title: `Zoom Performance`,
+            height: 600,
+            width: 1000,
             xaxis: {
             range: [startDate, endDate],
             type: "date",
@@ -151,6 +153,8 @@ function updatePlotly() {
     
     var plot_layout = {
             title: `${stockname} Performance`,
+            height: 600,
+            width: 1000,
             xaxis: {
             range: [startDate, endDate],
             type: "date",

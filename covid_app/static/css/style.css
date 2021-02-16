@@ -1,11 +1,12 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: whitesmoke !important;
   }
   
-body,html {
+/* body,html {
     height: 100%;
-  }
+  } */
   
 #map, #global_map {
       height: 600px;
@@ -15,6 +16,7 @@ body,html {
       border: #555;
       margin-top: 20px;
   }
+
 
 .leaflet-popup-content {
     text-align: center;
@@ -89,23 +91,23 @@ th { color: "light blue";
 
 .jumbotron {
   margin-left: 120px;
-  background-image: url(/covid_app/Images/covid.jpg);
+  background-image: url("../Images/covid.jpg");
   text-align: center;
-  font-weight: 900;
+  font-weight: bold !important;
   max-width: 1600px;
 }
 
 .card {
   color: black;
-  background-color:chocolate;
+  margin-top: 0%;
 }
 
 .card-header {
   font-size: 30px;
   text-align: center;
-  background-color: pink;
-  max-width: 1600px;
-  margin-left: 120px;
+  background-image: url("../Images/Peach.jpg");
+  /* max-width: 1600px; */
+  /* margin-left: 120px; */
 }
 
 .card-body {
@@ -120,4 +122,13 @@ th { color: "light blue";
   text-align: center;
   max-width: 1600px;
   margin-top: 40px;
+}
+
+#map-container {
+  background-color:ghostwhite ;
+  color:black;
+}
+
+h4 {
+  text-align: center;
 }

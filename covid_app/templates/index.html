@@ -7,23 +7,24 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>COVID-19 Dashboard</title>
 
-    <!-- Marker Cluster CSS -->
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+  <!-- Marker Cluster CSS -->
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
 
-   <!-- Leaflet CSS -->
-   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-   crossorigin=""/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin="" />
 
-   <!-- Our CSS -->
-   <link rel="stylesheet" type= "text/css" href="../static/css/style.css">
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
-  <!-- <div style="background-image: url(../Images/covid.jpg);" -->
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">COVID-19 Dashboard</h1>
@@ -31,85 +32,104 @@
       <p class="lead">Data from Jan 1, 2020 to Jan 31, 2021</p>
     </div>
   </div>
-  <div class= card>
-  <div class= card-header>
-    Introduction
-  <div class = card-body>
-  <h4>
-  Coronavirus disease 2019 (COVID-19) is a contagious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The first case was identified in Wuhan, China, in December 2019. The disease has since spread worldwide, leading to an ongoing pandemic. In this project we are studying the impact of COVID-19 on the World with Emphasis on North America.
-  We have plotted a geographic world map which will show the number of cases and deaths in each country in the past year. COVID vaccines have been introduced in several countries. Our focus is on Canada and we have created a visual map using geomap to show the number os cases, deaths and vaccines given duru=ing the period of Jan 2020 to Jan 2021.
-  </h4>
-</div>
-</div>
-
-<div class="row">
-  <div class="container">
-    <div class="col-md-12">
-      <div class="col">
-        <h2>Canada COVID-19 Map</h2>
+  <div class=card>
+    <div class=card-header>
+      Introduction
+      <div class=card-body>
+        <h4>
+          Coronavirus disease 2019 (COVID-19) is a contagious disease caused by severe acute respiratory syndrome
+          coronavirus 2 (SARS-CoV-2). The first case was identified in Wuhan, China, in December 2019. The disease has
+          since spread worldwide, leading to an ongoing pandemic. In this project we are studying the impact of COVID-19
+          on the World with Emphasis on North America.
+          We have plotted a geographic world map which will show the number of cases and deaths in each country in the
+          past year. COVID vaccines have been introduced in several countries. Our focus is on Canada and we have
+          created a visual map using geomap to show the number os cases, deaths and vaccines given duru=ing the period
+          of Jan 2020 to Jan 2021.
+        </h4>
       </div>
-<table class="col">
-  <tr>
-    <th><h4><strong>  Total Cases  </strong></h4></th>
-    <th><h4><strong>  Total Deaths  </strong></h4></th>
-    <th><h4><strong>  Total Vaccines  </strong></h4></th>
-  </tr>
-  <tr>
-    <td id="totalCases"></td>
-    <td id ="totalDeaths"></td>
-    <td id = "totalVaccine"></td>
-  </tr>
-</table>
-<h4>Hover over the Canadian provinces below for more COVID-19 data</h4>
- <div class="col-md-12"></div>
-             <div id="map">
-</div>
-</div>
-<div class="container">
-  <div class= "col">
-  <h2>World COVID-19 Map</h2>
+    </div>
   </div>
-</div>
-  <table class= "col">
-    <tr>
-      <th><h4><strong>  Global Cases  </strong></h4></th>
-      <th><h4><strong>  Global Deaths  </strong></h4></th>
-    </tr>
-    <tr>
-      <td id="Global Cases"></td>
-      <td id ="Global Deaths"></td>
-    </tr>
-  </table>
-  <div class="row">
-    <div class="col-md-12">
-</div> 
 
-<div class="row">
-  <div class="col-md-12"></div>
-    <div id="global_map">  </div>
-   <h2 class="col">Tech Stock Performance During COVID-19</h2>
- </div>
+  <div class="row" id="map-container">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="col">
+          <h2>Canada COVID-19 Map</h2>
+        </div>
+        <table class="col">
+          <tr>
+            <th>
+              <h4><strong> Total Cases </strong></h4>
+            </th>
+            <th>
+              <h4><strong> Total Deaths </strong></h4>
+            </th>
+            <th>
+              <h4><strong> Total Vaccines </strong></h4>
+            </th>
+          </tr>
+          <tr>
+            <td id="totalCases"></td>
+            <td id="totalDeaths"></td>
+            <td id="totalVaccine"></td>
+          </tr>
+        </table>
+        <h3>Hover over the Canadian provinces below for more COVID-19 data</h3>
+        <div class="row">
+          <div class="col-md-12"></div>
+          <div id="map"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="container">
+          <div class="col-md-12">
+            <div class="col">
+              <h2>World Map</h2>
+            </div>
+      <table class="col">
+        <tr>
+          <th>
+            <h4><strong> Global Cases </strong></h4>
+          </th>
+          <th>
+            <h4><strong> Global Deaths </strong></h4>
+          </th>
+        </tr>
+        <tr>
+          <td id="Global Cases"></td>
+          <td id="Global Deaths"></td>
+        </tr>
+      </table>
+      <div class="row">
+        <div class="col-md-12">
+        </div>
+
+        <div class="row">
+          <div class="col-md-12"></div>
+          <div id="global_map"> </div>
+          <h2 class="col">Tech Stock Performance During COVID-19</h2>
+        </div>
 
 
-<div>
- <select id="selDataset">
-   <option value="zoom">ZOOM</option>
-   <option value="slack">Slack</option>
-   <option value="cisco">Cisco</option>
-   <option value="shopify">Shopify</option>
- </select>
-</div>
+        <div>
+          <select id="selDataset">
+            <option value="zoom">ZOOM</option>
+            <option value="slack">Slack</option>
+            <option value="cisco">Cisco</option>
+            <option value="shopify">Shopify</option>
+          </select>
+        </div>
 
-<div id="stockPlot"></div>
-    
-</div>
-</div>
-</div>
+        <div id="stockPlot"></div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Leaflet JS-->
   <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-  integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-  crossorigin=""></script>
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
   <!-- d3 JavaScript -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -121,16 +141,14 @@
   <script type="text/javascript" src="../static/js/can_map.js"></script>
   <script type="text/javascript" src="../static/js/world_map.js"></script>
   <script type="text/javascript" src="../static/js/stock.js"></script>
-     <!-- Marker Cluster JS -->
-  <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+  <!-- Marker Cluster JS -->
+  <script type="text/javascript"
+    src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-  
+
 </body>
 
 </html>
-
-
-
