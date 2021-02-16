@@ -23,9 +23,7 @@ var covid_data = "/api/main/globalcovid";
     markers_config=data.World_Coordinates[0]
     markers_pop1=data.Global_Cases[0]
     markers_pop2=data.Global_Deaths[0]
-    console.log(markers_pop1)
-    console.log(markers_config)
-    console.log(markers_pop2)
+  
     
     for ( i = 0 ; i < markers_config.length ; i ++) {
       //console.log(data.World_Coordinates[0][i][1])
@@ -46,39 +44,6 @@ var covid_data = "/api/main/globalcovid";
     }
 
 
-  //   worldDeath = data.Global_Deaths;
-  //   worldCases = data.Global_Cases;
-    
-  //   // Create a new choropleth layer
-  //   var output = []
-  //   //coordinates countryname cases deaths 
-
-  //   // Create a new marker cluster group
-  //   var markers = L.markerClusterGroup();
-
-  //   markers_config.forEach(function(countrySet) {
-
-  //     var countryName = countrySet[0]
-  //     var coordinates = [countrySet[1], countrySet[2]]
-
-  //     worldCases.forEach(function(countryCase) {
-  //       if (countryName == countryCase[0]) {
-  //         var cases = countryCase[2]
-  //       }
-  //     });
-
-  //     worldDeath.forEach(function(countrydeath) {
-  //       if (countryName == countrydeath[0]) {
-  //         var deaths = countrydeath[2]
-  //       }
-  //     });
-      
-  //     markers.addlayer(L.Marker(markers_config).bindPopup(countryName, cases, deaths))
-  //   });
-
-  // // Add our marker cluster layer to the map
-  //     myMap.addLayer(markers);
-  
   });
 
 
