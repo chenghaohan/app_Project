@@ -24,7 +24,7 @@ var covid_data = "/api/main/globalcovid";
     markers_pop1=data.Global_Cases[0]
     markers_pop2=data.Global_Deaths[0]
   
-    
+  // Creating the loop to attach deaths and cases
     for ( i = 0 ; i < markers_config.length ; i ++) {
     
       for (c = 0 ; c < markers_pop1.length ; c ++) {
