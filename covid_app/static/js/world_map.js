@@ -1,7 +1,8 @@
 // Creating map object
 var myMap = L.map("global_map", {
     center: [40.52, 34.34],
-    zoom: 1.8
+    zoom: 1.8, 
+    scrollWheelZoom: false
   });
   
   // Adding tile layer

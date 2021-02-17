@@ -6,7 +6,8 @@ d3.json("/api/main/provcovid").then (function(data) {
 // Creating map object
   var canMap = L.map("map", {
       center: [62.24, -96.28],
-      zoom: 3.4
+      zoom: 3.4, 
+      scrollWheelZoom: false
     });
   
 // Adding tile layer
