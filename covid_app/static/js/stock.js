@@ -200,10 +200,14 @@ function updatePlotly() {
 init();
 
 //---------------------------------------------------------------------------------
+//The below code is for COVID19 Event checker function
 var newsData = "/api/main/news";
 var button = d3.select("#news_btn");
 // Select the form
 var form = d3.select("form");
+
+var tableBody = d3.select("#myTable")
+
 // Create event handles
 button.on("click", runEnter);
 form.on("submit", runEnter);
@@ -218,20 +222,15 @@ function runEnter(){
     //Filter data based on input date
     d3.json(newsData).then(function(news){
         // Select the table body
-        var tableBody = document.getElementById("#myTable");
         var event_of_day = news.filter(n => n.News_Date === inputDate);
-        // var output = event_of_day.map(n => n.event);
-        // tableBody.html(" ");
+
+        tableBody.html("");
         event_of_day.forEach(function (item){
-            var tableBody = document.getElementById("#myTable");
-            var row = tableBody.insertRow();
+            var row = tableBody.append("tr");
             Object.entries(item).forEach( function([key, value]){
                 var cell = row.append("td");
                 cell.text(value);
-            // var cell1 = row.insertCell();
-            // var cell2 = roww.insertCell();
-            // cell1.innerHTML = item.map(i => i.Event);
-            // cell2.innerHTML = item.map(i => i.News_Date)
             });
         });
-    })}
+    });
+}

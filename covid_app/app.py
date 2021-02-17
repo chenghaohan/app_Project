@@ -58,12 +58,12 @@ def newsRoute():
     news_data = []
 
     for i in news:
-        date = i[0].strftime("%m/%d/%Y")
+        date = i[0].strftime("%Y-%m-%d")
 
         # convert date to string date via datetime strftime function
         event = i[1]
 
-        news_output = {"event": event, "news_Date": date }
+        news_output = {"Event": event, "News_Date": date }
 
         news_data.append(news_output)
     
